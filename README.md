@@ -138,4 +138,4 @@ crontab -e
 ```
 Add content as below:
 ```sh
-* * * * * cd /var/www/hmcm-01 && php artisan schedule:run >> /dev/null 2>&1
+* * * * * cd /var/www/bussiness_01 && php artisan schedule:run >> /dev/null 2>&1
