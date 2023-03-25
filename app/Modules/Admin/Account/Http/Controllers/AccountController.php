@@ -7,9 +7,11 @@ use App\Modules\Admin\Account\Interfaces\AccountAdminInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class AccountController
@@ -27,7 +29,6 @@ class AccountController extends Controller
      */
     public function __construct(AccountAdminInterface $accountAdminInterface)
     {
-        !Auth::guard('admin')->check() ?: redirect()->route('admin.dashboard.index');
         $this->accountAdminInterface = $accountAdminInterface;
     }
 
@@ -70,5 +71,21 @@ class AccountController extends Controller
     public function profile(): View|Factory|Application
     {
         return view('admin.profile.index');
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return JsonResponse
+     */
+    public function updateProfile(Request $request): JsonResponse
+    {
+        try {
+            $this->accountAdminInterface->updateProfile($request);
+            return $this->responseSuccess(message: 'Cập nhật hồ sơ thành công!');
+        } catch (\Throwable $e) {
+            Log::info($e->getMessage());
+            return $this->responseFailed(message: 'Cập nhật hồ sơ thất bại!');
+        }
     }
 }

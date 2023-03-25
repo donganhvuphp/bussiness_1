@@ -12,8 +12,11 @@ interface AccountAdminInterface
 {
     /**
      * @param Request $request
-     *
-     * @return mixed
      */
-    public function login(Request $request): mixed;
+    public function login(Request $request);
+
+    /**
+     * @param Request $request
+     */
+    public function updateProfile(Request $request);
 }

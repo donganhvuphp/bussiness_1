@@ -7,11 +7,13 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Plank\Mediable\HandlesMediaUploadExceptions;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    use HandlesMediaUploadExceptions;
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -65,6 +67,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $e)
     {
+        $e = $this->transformMediaUploadException($e);
         return parent::render($request, $e);
     }
 
