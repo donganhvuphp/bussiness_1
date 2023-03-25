@@ -1,8 +1,8 @@
 /coverage
 /node_modules
-/public/css
-/public/js
-/public/fonts
+/public/client_assets/css
+/public/client_assets/js
+/public/client_assets/fonts
 /public/hot
 /public/storage
 /public/mix-manifest.json
