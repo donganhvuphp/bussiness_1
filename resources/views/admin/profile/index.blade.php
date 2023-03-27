@@ -72,6 +72,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="error-message error_avatar"></div>
                             <div class="row">
                                 <div class="clearfix"></div>
                                 <div class="col-md-12 mb-4">
@@ -101,28 +102,31 @@
                 <div class="tab-pane fade col-md-6" id="password-change">
                     <div class="tile user-settings">
                         <h4 class="line-head">Đổi mật khẩu</h4>
-                        <form>
+                        <form id="update-password" action="{{ route('admin.password.update') }}" method="POST" data-reset="true">
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label>Mật khẩu cũ:</label>
-                                    <input class="form-control" type="text">
+                                    <input name="current_password" class="form-control" type="password">
+                                    <div class="error-message error_current_password"></div>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label>Mật khẩu mới:</label>
-                                    <input class="form-control" type="text">
+                                    <input name="password" class="form-control" type="password">
+                                    <div class="error-message error_password"></div>
                                 </div>
                             </div>
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <label>Xác nhận mật khẩu mới:</label>
-                                    <input class="form-control" type="text">
+                                    <input name="password_confirmation" class="form-control" type="password">
+                                    <div class="error-message error_password_confirmation"></div>
                                 </div>
                             </div>
                             <div class="row mb-10">
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary" type="button">
+                                    <button class="btn btn-primary" type="submit">
                                         <i class="fa fa-fw fa-lg fa-check-circle"></i> Lưu
                                     </button>
                                 </div>

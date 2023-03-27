@@ -12,6 +12,8 @@ Route::group(
             ->name('admin.profile.index');
         Route::post('/', [AccountController::class, 'updateProfile'])
             ->name('admin.profile.update');
+        Route::post('/update-password', [AccountController::class, 'updatePassword'])
+            ->name('admin.password.update');
     }
 );
 

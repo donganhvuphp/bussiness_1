@@ -3,6 +3,8 @@
 namespace App\Modules\Admin\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admin\Account\Http\Requests\LoginRequest;
+use App\Modules\Admin\Account\Http\Requests\UpdatePasswordRequest;
 use App\Modules\Admin\Account\Http\Requests\UpdateProfileRequest;
 use App\Modules\Admin\Account\Interfaces\AccountAdminInterface;
 use Illuminate\Contracts\Foundation\Application;
@@ -10,7 +12,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -42,18 +43,18 @@ class AccountController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param LoginRequest $request
      *
      * @return RedirectResponse
      */
-    public function login(Request $request): RedirectResponse
+    public function login(LoginRequest $request): RedirectResponse
     {
         $auth = $this->accountAdminInterface->login($request);
         if ($auth) {
             return redirect()->route('admin.dashboard.index');
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('error', __('Thông tin tài khoản hoặc mật khẩu không chính xác.'));
     }
 
     /**
@@ -71,7 +72,6 @@ class AccountController extends Controller
      */
     public function profile(): View|Factory|Application
     {
-        debug(app()->getLocale());
         return view('admin.profile.index');
     }
 
@@ -84,10 +84,26 @@ class AccountController extends Controller
     {
         try {
             $this->accountAdminInterface->updateProfile($request);
-            return $this->responseSuccess(message: 'Cập nhật hồ sơ thành công!');
+            return $this->responseSuccess(message: __('Cập nhật hồ sơ thành công!'));
         } catch (\Throwable $e) {
             Log::info($e->getMessage());
-            return $this->responseFailed(message: 'Cập nhật hồ sơ thất bại!');
+            return $this->responseFailed(message: __('Cập nhật hồ sơ thất bại!'));
+        }
+    }
+
+    /**
+     * @param UpdatePasswordRequest $request
+     *
+     * @return JsonResponse
+     */
+    public function updatePassword(UpdatePasswordRequest $request): JsonResponse
+    {
+        try {
+            $this->accountAdminInterface->updatePassword($request);
+            return $this->responseSuccess(message: __('Đổi mật khẩu thành công!'));
+        } catch (\Throwable $e) {
+            Log::info($e->getMessage());
+            return $this->responseFailed(message: __('Đổi mật khẩu thất bại!'));
         }
     }
 }

@@ -2,13 +2,12 @@
 
 namespace App\Modules\Admin\Account\Http\Requests;
 
-use App\Rules\VerifyPasswordOldRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * Class UpdatePasswordRequest.
  */
-class UpdatePasswordRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,16 +27,8 @@ class UpdatePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'current_password'      => [
-                'required',
-                new VerifyPasswordOldRule(adminInfo()->user()),
-            ],
-            'password'              => [
-                'required',
-                'min:6',
-                'regex:'.config('regex.password'),
-            ],
-            'password_confirmation' => 'required_with:password|same:password|min:6',
+            'email' => 'required',
+            'password' => 'required',
         ];
     }
 }

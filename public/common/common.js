@@ -12,11 +12,11 @@ const COMMON = (function () {
         }
     };
 
-    modules.loading = function (isLoading) {
+    modules.loading = function (isLoading, delay = 0) {
         if (isLoading) {
-            $('#loading').removeClass('d-none').addClass('d-flex');
+            $('.loading').removeClass('d-none')
         } else {
-            $('#loading').removeClass('d-flex').addClass('d-none');
+            setTimeout(() => $('.loading').addClass('d-none'), delay);
         }
     };
 

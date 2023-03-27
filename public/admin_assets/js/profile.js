@@ -6,6 +6,8 @@ const PROFILE = (function () {
     modules.update = function (e) {
         e.preventDefault();
         const form = $(this);
+        const formId = `#${$(this).attr('id')}`;
+        const formReset = $(this).data('reset');
         const formData = new FormData(form.get(0));
         $.ajax({
             type: 'POST',
@@ -15,17 +17,24 @@ const PROFILE = (function () {
             contentType: false,
             processData: false,
             beforeSend: function () {
-                COMMON.clearValidate('#update-profile');
+                COMMON.loading(true);
+                COMMON.clearValidate(formId);
             },
             success: function (res) {
                 if (res.success) {
+                    if(formReset) {
+                        form.get(0).reset();
+                    }
                     toastr.success(res.message);
                 } else if (res.failed) {
                     toastr.error(res.message);
                 }
             },
             error: function (res) {
-                COMMON.showValidateMessage('#update-profile', res, false);
+                COMMON.showValidateMessage(formId, res, false);
+            },
+            complete: function () {
+                COMMON.loading(false, 700);
             }
         });
     };
@@ -35,6 +44,7 @@ const PROFILE = (function () {
 
 $(document).ready(function () {
     $(`#update-profile`).on('submit', PROFILE.update);
+    $(`#update-password`).on('submit', PROFILE.update);
 
     $(`#image-upload`).change(function (data) {
         COMMON.previewImage(data, '#image-preview');

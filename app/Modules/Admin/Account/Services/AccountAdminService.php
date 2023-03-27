@@ -42,6 +42,7 @@ class AccountAdminService extends BaseService implements AccountAdminInterface
 
     /**
      * @param Request $request
+     *
      * @return bool
      */
     public function updateProfile(Request $request): bool
@@ -61,18 +62,30 @@ class AccountAdminService extends BaseService implements AccountAdminInterface
      */
     private function uploadAvatar($update, $request, $model): bool
     {
-        if ($request->hasFile('avatar')) {
-            $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'admin');
-        }
-
         if ($update) {
-            if(!empty($media) && $model->hasMedia(Admin::TAG_AVATAR)){
+            if ($request->hasFile('avatar')) {
+                $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'admin');
+            }
+            if (!empty($media) && $model->hasMedia(Admin::TAG_AVATAR)) {
                 $this->mediaInterface->deleteExistingFile($model->getMedia(Admin::TAG_AVATAR)->first());
             }
             empty($media) ?: $model->syncMedia($media, Admin::TAG_AVATAR);
+
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function updatePassword(Request $request): bool
+    {
+        $admin = $this->getById(adminInfo()->id());
+
+        return $admin->update($request->only('password'));
     }
 }

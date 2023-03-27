@@ -33,7 +33,6 @@ return [
     ],
     'boolean'              => ':attribute phải là true hoặc false.',
     'confirmed'            => 'Giá trị xác nhận trong trường :attribute không khớp.',
-    'current_password'     => 'Mật khẩu không đúng.',
     'date'                 => ':attribute không phải là định dạng của ngày-tháng.',
     'date_equals'          => ':attribute phải là một ngày bằng với :date.',
     'date_format'          => ':attribute không giống với định dạng :format.',
@@ -159,6 +158,12 @@ return [
         'birth_day' => [
             'date_format' => ':attribute phải là ngày hợp lệ và theo định dạng dd/mm/yyyy.',
         ],
+        'current_password' => [
+            'required' => ':attribute không được bỏ trống.'
+        ],
+        'password_confirmation' => [
+            'same' => ':attribute không chính xác.',
+        ]
     ],
 
     /*

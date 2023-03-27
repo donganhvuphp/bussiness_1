@@ -4,6 +4,7 @@
     @include('admin.layouts.head')
 </head>
 <body class="app sidebar-mini">
+<div class="loading d-none">Loading</div>
 <!-- Navbar-->
 <!-- Sidebar menu-->
 @include('admin.layouts.header')

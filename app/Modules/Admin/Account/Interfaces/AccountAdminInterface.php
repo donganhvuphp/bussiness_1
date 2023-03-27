@@ -19,4 +19,10 @@ interface AccountAdminInterface
      * @param Request $request
      */
     public function updateProfile(Request $request);
+
+
+    /**
+     * @param Request $request
+     */
+    public function updatePassword(Request $request);
 }

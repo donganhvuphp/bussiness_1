@@ -22,4 +22,14 @@ trait AdminAttribute
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    /**
+     * @param $password
+     *
+     * @return void
+     */
+    public function setPasswordAttribute($password): void
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 }

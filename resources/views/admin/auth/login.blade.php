@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Main CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('common/common.css')}}">
     <!-- Font-icon css-->
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Administrator</title>
@@ -18,17 +19,26 @@
     <div class="logo">
         <h1>Admin</h1>
     </div>
-    <div class="login-box">
-        <form class="login-form" action="{{ route('admin.login') }}" method="POST">
+    <div class="login-box justify-content-center">
+        @if(session('error'))
+            <div class="error-message d-flex mt-10 ml-25"> {{ session('error') }}</div>
+        @endif
+        <form class="login-form" action="{{ route('admin.login') }}" method="POST" autocomplete="off">
             @csrf
             <h3 class="login-head"><i class="fa fa-lg fa-fw fa-user"></i>Đăng nhập</h3>
             <div class="form-group">
                 <label class="control-label">Tài khoản</label>
-                <input class="form-control" type="text" placeholder="Email" name="email">
+                <input class="form-control" type="text" placeholder="Email" name="email" autocomplete="off">
+                @error('email')
+                 <div class="error-message d-flex"> {{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <label class="control-label">Mật khẩu</label>
-                <input class="form-control" type="password" placeholder="Password" name="password">
+                <input class="form-control" type="password" placeholder="Password" name="password" autocomplete="off">
+                @error('password')
+                <div class="error-message d-flex"> {{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <div class="utility">

@@ -1,5 +1,5 @@
 <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" width="60" src="{{ $admin_composer->avatar }}" alt="User Image">
+    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar object-fit-cover" width="60" height="60" src="{{ $admin_composer->avatar }}" alt="User Image">
         <div>
             <p class="app-sidebar__user-name">{{ $admin_composer->full_name }}</p>
             <p class="app-sidebar__user-designation">Quản Lý</p>
