@@ -2,10 +2,12 @@
 
 namespace App\Modules\Media\Services;
 
+use Exception;
 use App\Modules\Media\Interfaces\MediaInterface;
 use App\Modules\Media\Models\Media;
 use App\Services\BaseService;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Plank\Mediable\Exceptions\MediaUploadException;
 use Plank\Mediable\HandlesMediaUploadExceptions;
 use Plank\Mediable\MediaUploader;
@@ -39,7 +41,7 @@ class MediaService extends BaseService implements MediaInterface
      * @param null   $directory
      *
      * @return \Plank\Mediable\Media
-     * @throws \Exception
+     * @throws Exception
      */
     public function upload($file, $disk = 'public', $directory = null): \Plank\Mediable\Media
     {
@@ -47,7 +49,7 @@ class MediaService extends BaseService implements MediaInterface
             return $this->mediaUploader
                 ->fromSource($file)
                 ->toDestination($disk, $directory)
-                ->useHashForFilename()
+                ->useFilename(Str::random(40) . time())
                 ->upload();
         } catch (MediaUploadException $e) {
             throw $this->transformMediaUploadException($e);
@@ -57,10 +59,11 @@ class MediaService extends BaseService implements MediaInterface
     /**
      * @param $media
      *
-//     * @return bool
+     * @return bool
      */
-    public function deleteExistingFile($media)
+    public function deleteExistingFile($media): bool
     {
+        $media->delete();
         return Storage::disk($media->disk)->delete($media->getDiskPath());
     }
 }

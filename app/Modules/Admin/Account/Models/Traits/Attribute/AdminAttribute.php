@@ -12,6 +12,14 @@ trait AdminAttribute
      */
     public function getAvatarAttribute(): mixed
     {
-        return $this->getMedia(self::TAG_AVATAR)->first()->getUrl() ?? asset('admin_assets/images/avatar.jpeg');
+        return optional($this->getMedia(self::TAG_AVATAR)->first())->getUrl() ?? asset('admin_assets/images/avatar.jpeg');
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullNameAttribute(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 }

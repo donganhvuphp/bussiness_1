@@ -46,16 +46,30 @@ class AccountAdminService extends BaseService implements AccountAdminInterface
      */
     public function updateProfile(Request $request): bool
     {
+        $admin = $this->getById(adminInfo()->id());
+        $update = $admin->update($request->except('file'));
+
+        return $this->uploadAvatar($update, $request, $admin);
+    }
+
+    /**
+     * @param $update
+     * @param $request
+     * @param $model
+     *
+     * @return bool
+     */
+    private function uploadAvatar($update, $request, $model): bool
+    {
         if ($request->hasFile('avatar')) {
             $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'admin');
         }
-        $admin = $this->getById(adminInfo()->id());
-        $update = $admin->update($request->except('file'));
+
         if ($update) {
-            if(isset($media) && $admin->hasMedia(Admin::TAG_AVATAR)){
-                $this->mediaInterface->deleteExistingFile($admin->getMedia(Admin::TAG_AVATAR)->first());
+            if(!empty($media) && $model->hasMedia(Admin::TAG_AVATAR)){
+                $this->mediaInterface->deleteExistingFile($model->getMedia(Admin::TAG_AVATAR)->first());
             }
-            !isset($media) ?: $admin->syncMedia($media, Admin::TAG_AVATAR);
+            empty($media) ?: $model->syncMedia($media, Admin::TAG_AVATAR);
             return true;
         }
 

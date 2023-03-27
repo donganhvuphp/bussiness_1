@@ -1,9 +1,9 @@
 import {COMMON} from "../../common/common.js";
 
 const PROFILE = (function () {
-    let module = {};
+    let modules = {};
 
-    module.update = function (e) {
+    modules.update = function (e) {
         e.preventDefault();
         const form = $(this);
         const formData = new FormData(form.get(0));
@@ -14,15 +14,24 @@ const PROFILE = (function () {
             dataType: 'json',
             contentType: false,
             processData: false,
+            beforeSend: function () {
+                COMMON.clearValidate('#update-profile');
+            },
             success: function (res) {
+                if (res.success) {
+                    toastr.success(res.message);
+                } else if (res.failed) {
+                    toastr.error(res.message);
+                }
             },
             error: function (res) {
+                COMMON.showValidateMessage('#update-profile', res, false);
             }
         });
     };
 
-    return module
-})();
+    return modules;
+})(window.jQuery, window, document);
 
 $(document).ready(function () {
     $(`#update-profile`).on('submit', PROFILE.update);

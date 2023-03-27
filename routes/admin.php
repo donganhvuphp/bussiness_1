@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\LocaleController;
 use Illuminate\Support\Facades\Route;
+
+Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.change');
 
 Route::namespace('admin')->group(
     function () {

@@ -13,7 +13,7 @@ return [
      *
      * Should extend `Plank\Mediable\Media`
      */
-    'model' => Plank\Mediable\Media::class,
+    'model' => \App\Modules\Media\Models\Media::class,
 
     /*
      * Name to be used for mediables joining table
@@ -32,12 +32,14 @@ return [
      */
     'allowed_disks' => [
         'public',
+        'uploads',
+        's3'
     ],
 
     /*
      * The maximum file size in bytes for a single uploaded file
      */
-    'max_size' => 1024 * 1024 * 10,
+    'max_size' => 1024 * 1024 * 5,
 
     /*
      * What to do if a duplicate file is uploaded.

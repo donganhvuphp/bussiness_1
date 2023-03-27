@@ -1,0 +1,13 @@
+.w-40 {
+    width: 40% !important;
+}
+
+.error-message {
+    color: #d30000;
+    margin: 0.25rem !important;
+    display: none;
+}
+
+.border-error {
+    border: 1px solid red;
+}

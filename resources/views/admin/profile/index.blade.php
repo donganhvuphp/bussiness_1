@@ -62,11 +62,13 @@
                                         <label>Họ:</label>
                                         <input name="first_name" value="{{ $admin_composer->first_name ?? null }}" class="form-control" type="text"
                                                placeholder="nhập vào họ...">
+                                        <div class="error-message error_first_name"></div>
                                     </div>
                                     <div>
                                         <label>Tên:</label>
                                         <input name="last_name" value="{{ $admin_composer->last_name ?? null }}" class="form-control" type="text"
                                                placeholder="nhập vào tên...">
+                                        <div class="error-message error_last_name"></div>
                                     </div>
                                 </div>
                             </div>
@@ -76,12 +78,14 @@
                                     <label>Số điện thoại:</label>
                                     <input name="phone" value="{{ $admin_composer->phone ?? null }}" class="form-control" type="number"
                                            placeholder="nhập vào số điện thoại...">
+                                    <div class="error-message error_phone"></div>
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="col-md-12 mb-4">
                                     <label>Địa chỉ:</label>
                                     <input name="address" value="{{ $admin_composer->address ?? null }}" class="form-control" type="text"
                                            placeholder="nhập vào số địa chỉ...">
+                                    <div class="error-message error_address"></div>
                                 </div>
                             </div>
                             <div class="row mb-10">

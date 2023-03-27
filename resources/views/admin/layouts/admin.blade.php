@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ htmlLang() }}">
 <head>
     @include('admin.layouts.head')
 </head>

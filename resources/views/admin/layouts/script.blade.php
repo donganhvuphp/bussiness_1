@@ -1,5 +1,5 @@
-<!-- Essential javascripts for application to work-->
 <script src="{{ asset('admin_assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('common/toastr.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/main.js') }}"></script>

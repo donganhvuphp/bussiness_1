@@ -1,7 +1,7 @@
 const COMMON = (function () {
-    let module = {};
+    let modules = {};
 
-    module.previewImage = function (previewIn, previewOut) {
+    modules.previewImage = function (previewIn, previewOut) {
         let imageFile = previewIn.target.files[0];
         let reader = new FileReader();
         reader.readAsDataURL(imageFile);
@@ -12,7 +12,85 @@ const COMMON = (function () {
         }
     };
 
-    return module
+    modules.loading = function (isLoading) {
+        if (isLoading) {
+            $('#loading').removeClass('d-none').addClass('d-flex');
+        } else {
+            $('#loading').removeClass('d-flex').addClass('d-none');
+        }
+    };
+
+    modules.scrollToError = function (errorSelector = '.errors') {
+        const selector = $(`${errorSelector}[style!="display: none;"]`);
+        const stickyBarHeight = $('form .position-sticky.sticky-bar').first().height() || 100;
+        const sidebarHeight = $('#sidebar-mobile').height();
+        if (
+            selector.length > 0
+        ) {
+            $("html, body").animate(
+                {
+                    scrollTop: selector.first().parent().offset().top - (stickyBarHeight + sidebarHeight),
+                },
+                1500,
+                null,
+                () => {
+                    selector.first().parent().find('input').trigger('focus');
+                }
+            );
+        }
+    };
+
+    modules.clearValidate = function (form) {
+        $(form).find('.border-error').removeClass('border-error');
+        $(form).find('.error-message').text('').hide();
+    };
+
+    modules.debounce = function (func, wait) {
+        let debounceTimer;
+        return function () {
+            const context = this;
+            const args = arguments;
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => func.apply(context, args), wait);
+        }
+    };
+
+    modules.showValidateMessage = function (parent, response, scroll = true) {
+        $(parent).find('.error-message').text('').hide();
+
+        if ('status' in response && response.status === 422) {
+            $.each(response.responseJSON.errors, function (nameOld, message) {
+                let name = nameOld.replace('.', '_');
+                $(parent).find(`.error_${name}`).text(message).show();
+                $(parent).find(`input[name="${name}"], textarea[name="${name}"]`).addClass('border-error');
+                $(parent).find(`select[name="${name}"]`).next().find('.select2-selection').addClass('border-error');
+            });
+            if (scroll) {
+                modules.scrollToError();
+            }
+        } else {
+            toastr.error('Đã có một lỗi xảy ra.');
+        }
+    };
+
+    modules.escapeHtml = function (unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    };
+
+    modules.trimSpaces = function (string) {
+        if (string) {
+            return $.trim(string)
+        }
+
+        return string;
+    };
+
+    return modules;
 })();
 
 export { COMMON }

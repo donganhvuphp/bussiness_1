@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Modules\Admin\Account\Http\Requests\UpdateProfileRequest;
 use App\Modules\Admin\Account\Interfaces\AccountAdminInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -70,15 +71,16 @@ class AccountController extends Controller
      */
     public function profile(): View|Factory|Application
     {
+        debug(app()->getLocale());
         return view('admin.profile.index');
     }
 
     /**
-     * @param Request $request
+     * @param UpdateProfileRequest $request
      *
      * @return JsonResponse
      */
-    public function updateProfile(Request $request): JsonResponse
+    public function updateProfile(UpdateProfileRequest $request): JsonResponse
     {
         try {
             $this->accountAdminInterface->updateProfile($request);
