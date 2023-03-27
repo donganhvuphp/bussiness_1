@@ -83,8 +83,8 @@ server {
         root /var/www/letsencrypt/;
         log_not_found off;
     }
-    error_log /var/log/nginx/hmcm01_error.log;
-    access_log /var/log/nginx/hmcm01_access.log;
+    error_log /var/log/nginx/bussiness_01_error.log;
+    access_log /var/log/nginx/bussiness_01_access.log;
 }
 ```
 
