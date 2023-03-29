@@ -1,6 +1,6 @@
 <?php
 
-if (! function_exists('htmlLang')) {
+if (!function_exists('htmlLang')) {
     /**
      * @return string|array
      */
@@ -9,3 +9,18 @@ if (! function_exists('htmlLang')) {
         return str_replace('_', '-', app()->getLocale());
     }
 }
+
+if (!function_exists('indexTable')) {
+    /**
+     * @param $currentPage
+     * @param $perPage
+     * @param $index
+     *
+     * @return string
+     */
+    function indexTable($currentPage, $perPage, $index): string
+    {
+        return ($currentPage * $perPage) - $perPage + $index + 1;
+    }
+}
+

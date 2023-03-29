@@ -10,6 +10,7 @@ Route::namespace('admin')->group(
         Route::group(['middleware' => ['auth:admin']], function () {
             includeRouteFiles(__DIR__.'/admin/dashboard/');
             includeRouteFiles(__DIR__.'/admin/profile/');
+            includeRouteFiles(__DIR__.'/admin/category/');
         });
         Route::group(['prefix' => '/'],function () {
             includeRouteFiles(__DIR__.'/admin/auth/');

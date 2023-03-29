@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -215,13 +216,14 @@ abstract class BaseService
     }
 
     /**
-     * @param  int  $limit
-     * @param  array  $columns
-     * @param  string  $pageName
+     * @param int    $limit
+     * @param  array $columns
+     * @param string $pageName
      * @param  null  $page
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     *
+     * @return LengthAwarePaginator
      */
-    public function paginate($limit = 25, array $columns = ['*'], $pageName = 'page', $page = null)
+    public function paginate(int $limit = 25, array $columns = ['*'], string $pageName = 'page', $page = null): LengthAwarePaginator
     {
         $this->newQuery()->eagerLoad()->setClauses()->setScopes();
 

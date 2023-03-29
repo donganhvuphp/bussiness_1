@@ -31,13 +31,13 @@ class Controller extends BaseController
     }
 
     /**
-     * @param int    $status
-     * @param string $message
-     * @param array $data
+     * @param int        $status
+     * @param string     $message
+     * @param $data
      *
      * @return JsonResponse
      */
-    protected function responseSuccess(int $status = Response::HTTP_OK, string $message = '', array $data = []): JsonResponse
+    protected function responseSuccess(int $status = Response::HTTP_OK, string $message = '', $data = null): JsonResponse
     {
         return response()->json(
             [

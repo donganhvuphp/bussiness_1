@@ -2,6 +2,10 @@
     width: 40% !important;
 }
 
+.w-30 {
+    width: 30% !important;
+}
+
 .error-message {
     color: #d30000;
     margin: 0.25rem !important;
@@ -22,4 +26,14 @@
 
 .ml-25 {
     margin-left: 25px !important;
+}
+
+.position-search {
+    top: 11px;
+    right: 11px;
+    color: gray;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
