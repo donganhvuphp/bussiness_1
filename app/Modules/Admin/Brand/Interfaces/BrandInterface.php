@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Modules\Admin\Category\Interfaces;
+namespace App\Modules\Admin\Brand\Interfaces;
 use Illuminate\Http\Request;
 
 /**
- * Interface CategoryInterface
+ * Interface BrandInterface
  *
  * @package App\Modules\Admin\Category\Interfaces
  */
-interface CategoryInterface
+interface BrandInterface
 {
     /**
      * @param Request $request
      *
      * @return bool
      */
-    public function handleCategory(Request $request): bool;
+    public function handleBrand(Request $request): bool;
 
     /**
      * @param Request $request
@@ -23,16 +23,16 @@ interface CategoryInterface
     public function search(Request $request);
 
     /**
-     * @param $category
+     * @param $brand
      *
      * @return mixed
      */
-    public function delete($category): mixed;
+    public function delete($brand): mixed;
 
     /**
-     * @param $category
+     * @param $brand
      *
      * @return mixed
      */
-    public function show($category): mixed;
+    public function show($brand): mixed;
 }

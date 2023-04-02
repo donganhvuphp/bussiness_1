@@ -4,8 +4,8 @@
         <td>{{ $category->name }}</td>
         <td>{{ formatTime($category->created_at) }}</td>
         <td>
-            <button class="btn btn-warning" type="button">{{ __('Sửa') }}</button>
-            <button class="btn btn-danger" type="button">{{ __('Xóa') }}</button>
+            <button class="btn btn-warning edit-category" data-url="{{ route('admin.categories.show', $category->id) }}" type="button">{{ __('Sửa') }}</button>
+            <button class="btn btn-danger delete-category" data-id="{{ $category->id }}" type="button">{{ __('Xóa') }}</button>
         </td>
     </tr>
 @empty

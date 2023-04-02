@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Modules\Admin\Category\Services;
+namespace App\Modules\Admin\Brand\Services;
 
-use App\Modules\Admin\Category\Interfaces\CategoryInterface;
-use App\Modules\Admin\Category\Models\Category;
+use App\Modules\Admin\Brand\Interfaces\BrandInterface;
+use App\Modules\Admin\Brand\Models\Brand;
 use App\Services\BaseService;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
- * Class CategoryService
+ * Class BrandService
  *
- * @package App\Modules\Admin\Account\Services
+ * @package App\Modules\Admin\Category\Services
  */
-class CategoryService extends BaseService implements CategoryInterface
+class BrandService extends BaseService implements BrandInterface
 {
-    public function __construct(Category $category)
+    public function __construct(Brand $brand)
     {
-        $this->model = $category;
+        $this->model = $brand;
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoryService extends BaseService implements CategoryInterface
      *
      * @return bool
      */
-    public function handleCategory(Request $request): bool
+    public function handleBrand(Request $request): bool
     {
         if ($request->id) {
            return $this->getById($request->id)->update($request->only('name'));
@@ -45,24 +45,24 @@ class CategoryService extends BaseService implements CategoryInterface
     }
 
     /**
-     * @param $category
+     * @param $brand
      *
      * @return bool|null
      * @throws Exception
      */
-    public function delete($category): ?bool
+    public function delete($brand): ?bool
     {
-        return $this->deleteById($category);
+        return $this->deleteById($brand);
     }
 
     /**
-     * @param $category
+     * @param $brand
      *
      * @return Model
      * @throws Exception
      */
-    public function show($category): Model
+    public function show($brand): Model
     {
-        return $this->getById($category);
+        return $this->getById($brand);
     }
 }

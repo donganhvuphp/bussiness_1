@@ -31,9 +31,11 @@ class CategoryController extends Controller
         $categories = $this->categoryInterface->search($request);
         if ($request->ajax()) {
             $view = view('admin.category.table', compact('categories'))->render();
-            $paginate = view('admin.category.paginate', compact('categories'))->render();
+            $paginate = view('admin.pagination.index')->with(['data' => $categories])->render();
+
             return $this->responseSuccess(data: ['html' => $view, 'pagination' => $paginate]);
         }
+
         return view('admin.category.index', compact('categories'));
     }
 
@@ -54,10 +56,42 @@ class CategoryController extends Controller
     {
         try {
             $this->categoryInterface->handleCategory($request);
-            return $this->responseSuccess(message: __('Tạo danh mục thành công!'));
+
+            return $this->responseSuccess(message: __((!empty($request->id) ? 'Sửa' : 'Tạo').' danh mục thành công!'));
         } catch (\Throwable $e) {
             Log::info($e->getMessage());
-            return $this->responseFailed(message: __('Tạo danh mục thất bại!'));
+
+            return $this->responseFailed(message: __((!empty($request->id) ? 'Sửa' : 'Tạo').' danh mục thất bại!'));
+        }
+    }
+
+    /**
+     * @param $category
+     *
+     * @return Application|Factory|View
+     */
+    public function show($category): View|Factory|Application
+    {
+        $category = $this->categoryInterface->show($category);
+
+        return view('admin.category.form', compact('category'));
+    }
+
+    /**
+     * @param $category
+     *
+     * @return JsonResponse
+     */
+    public function delete($category): JsonResponse
+    {
+        try {
+            $this->categoryInterface->delete($category);
+
+            return $this->responseSuccess(message: __('Đã xóa thành công!'));
+        } catch (\Throwable $e) {
+            Log::info($e->getMessage());
+
+            return $this->responseFailed(message: __('Xóa thất bại!'));
         }
     }
 }

@@ -1,6 +1,6 @@
 import {COMMON} from "../../common/common.js";
 
-const CATEGORY = (function () {
+const BRAND = (function () {
     let modules = {};
 
     modules.handle = function (e) {
@@ -48,8 +48,8 @@ const CATEGORY = (function () {
             },
             success: function (res) {
                 if (res.success) {
-                    $('#list-category table tbody').html(res.data.html);
-                    $('#list-category .render-paginate').html(res.data.pagination);
+                    $('#list-brand table tbody').html(res.data.html);
+                    $('#list-brand .render-paginate').html(res.data.pagination);
                 } else {
                     toastr.error('Đã xảy ra lỗi hệ thống');
                 }
@@ -63,7 +63,7 @@ const CATEGORY = (function () {
     modules.delete = function (id, callback) {
         $.ajax({
             type: 'DELETE',
-            url: `/admin/categories/${id}`,
+            url: `/admin/brands/${id}`,
             dataType: 'json',
             beforeSend: function () {
                 COMMON.loading(true);
@@ -86,31 +86,31 @@ const CATEGORY = (function () {
 })(window.jQuery, window, document);
 
 $(document).ready(function () {
-    $(`#handle-category`).on('submit', CATEGORY.handle);
+    $(`#handle-brand`).on('submit', BRAND.handle);
 
-    $(document).on('click', '#list-category .pagination a', function (e) {
+    $(document).on('click', '#list-brand .pagination a', function (e) {
         e.preventDefault();
         let keySearch = $("input[name='key_search']").val().trim();
-        CATEGORY.getList($(this).attr('href'), {key_search: keySearch});
+        BRAND.getList($(this).attr('href'), {key_search: keySearch});
     });
 
     $(document).on('keyup', "input[name='key_search']", COMMON.debounce(function () {
-        CATEGORY.getList('/admin/categories/', {key_search: $(this).val().trim()});
+        BRAND.getList('/admin/brands/', {key_search: $(this).val().trim()});
     }, 500));
 
 
-    $(document).on('click', '.delete-category', function () {
+    $(document).on('click', '.delete-brand', function () {
         COMMON.confirmDelete(() => {
-            CATEGORY.delete($(this).data('id'), () => {
-                CATEGORY.getList(
-                    '/admin/categories/',
+            BRAND.delete($(this).data('id'), () => {
+                BRAND.getList(
+                    '/admin/brands/',
                     {key_search: $("input[name='key_search']").val().trim()}
                 )
             })
         })
     });
 
-    $(document).on('click', '.edit-category', function () {
+    $(document).on('click', '.edit-brand', function () {
         window.location.href = $(this).data('url');
     })
 });

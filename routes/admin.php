@@ -11,10 +11,15 @@ Route::namespace('admin')->group(
             includeRouteFiles(__DIR__.'/admin/dashboard/');
             includeRouteFiles(__DIR__.'/admin/profile/');
             includeRouteFiles(__DIR__.'/admin/category/');
+            includeRouteFiles(__DIR__.'/admin/brand/');
         });
         Route::group(['prefix' => '/'],function () {
             includeRouteFiles(__DIR__.'/admin/auth/');
         });
+
+        Route::get('/error',function () {
+            return view('admin.error.index');
+        })->name('admin.error');
     }
 );
 

@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    {{ __('Danh mục sản phẩm') }}
+    {{ __('Nhãn hiệu') }}
 @endsection
 @section('css-after')
 @endsection
@@ -9,28 +9,28 @@
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i>{{ !empty($category->name) ?  __('Sửa danh mục') : __('Tạo mới danh mục') }}</h1>
-            <p>{{ __('Thông tin Danh mục sản phẩm') }}</p>
+            <h1><i class="fa fa-dashboard"></i>{{ !empty($brand->name) ?  __('Sửa nhãn hiệu') : __('Tạo mới nhãn hiệu') }}</h1>
+            <p>{{ __('Thông tin nhãn hiệu sản phẩm') }}</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="#">{{ !empty($category->name) ? __('Sửa danh mục') : __('Tạo mới danh mục') }}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ !empty($brand->name) ? __('Sửa nhãn hiệu') : __('Tạo mới nhãn hiệu') }}</a></li>
         </ul>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12 col-lg-5">
             <div class="tile">
                 <div class="d-flex justify-content-between">
-                    <h3 class="tile-title">{{ !empty($category->name) ?  __('Sửa danh mục') : __('Tạo danh mục') }}</h3>
+                    <h3 class="tile-title">{{ !empty($brand->name) ?  __('Sửa nhãn hiệu') : __('Tạo nhãn hiệu') }}</h3>
                 </div>
-                <form id="handle-category" action="{{ route('admin.categories.handle') }}" method="POST" data-redirect="{{ route('admin.categories.index') }}">
-                    @if(!empty($category))
-                        <input name="id" value="{{ $category->id ?? '' }}" type="hidden">
+                <form id="handle-brand" action="{{ route('admin.brands.handle') }}" method="POST" data-redirect="{{ route('admin.brands.index') }}">
+                    @if(!empty($brand))
+                        <input name="id" value="{{ $brand->id ?? '' }}" type="hidden">
                     @endif
                     <div class="row mb-4">
                         <div class="col-12">
-                            <label>Tên danh mục:</label>
-                            <input name="name" value="{{ $category->name ?? '' }}" class="form-control" type="text">
+                            <label>Tên nhãn hiệu:</label>
+                            <input name="name" value="{{ $brand->name ?? '' }}" class="form-control" type="text">
                             <div class="error-message error_name"></div>
                         </div>
                     </div>
@@ -48,5 +48,5 @@
 @endsection
 
 @section('script-after')
-    <script src="{{ asset('admin_assets/js/category.js') }}" type="module"></script>
+    <script src="{{ asset('admin_assets/js/brand.js') }}" type="module"></script>
 @endsection

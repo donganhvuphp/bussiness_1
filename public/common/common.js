@@ -1,6 +1,26 @@
 const COMMON = (function () {
     let modules = {};
 
+    modules.confirmDelete = function (handle) {
+        swal({
+            title: "Bạn có chắc chắn muốn xóa không?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy bỏ",
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(confirm) {
+            if (confirm) {
+                handle();
+            }
+        });
+    };
+
+    modules.notifySuccess = function (content) {
+        swal("Thành công!", content, "success");
+    };
+
     modules.previewImage = function (previewIn, previewOut) {
         let imageFile = previewIn.target.files[0];
         let reader = new FileReader();

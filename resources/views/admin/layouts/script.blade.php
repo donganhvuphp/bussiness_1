@@ -2,6 +2,7 @@
 <script src="{{ asset('common/toastr.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('admin_assets/js/plugins/sweetalert.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/main.js') }}"></script>
 <!-- The javascript plugin to display page loading on top-->
 <script src="{{ asset('admin_assets/js/plugins/pace.min.js') }}"></script>
