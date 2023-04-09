@@ -4,6 +4,7 @@ use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 if (!function_exists('getFileUrl')) {
     /**
@@ -25,5 +26,17 @@ if (!function_exists('adminInfo')) {
     function adminInfo(): Guard|StatefulGuard
     {
         return Auth::guard('admin');
+    }
+}
+
+if (!function_exists('generateSlug')) {
+    /**
+     * @param $data
+     *
+     * @return string
+     */
+    function generateSlug($data): string
+    {
+        return Str::slug($data . '-' . time());
     }
 }

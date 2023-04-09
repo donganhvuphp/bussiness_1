@@ -57,13 +57,21 @@ class MediaService extends BaseService implements MediaInterface
     }
 
     /**
-     * @param $media
+     * @param      $media
+     * @param bool $is_first
      *
-     * @return bool
+     * @return void
      */
-    public function deleteExistingFile($media): bool
+    public function deleteExistingFile($media, bool $is_first = true): void
     {
-        $media->delete();
-        return Storage::disk($media->disk)->delete($media->getDiskPath());
+        if (!$is_first) {
+            foreach ($media as $value) {
+                $value->delete();
+                Storage::disk($media->disk)->delete($media->getDiskPath());
+            }
+        } else {
+            $media->delete();
+            Storage::disk($media->disk)->delete($media->getDiskPath());
+        }
     }
 }

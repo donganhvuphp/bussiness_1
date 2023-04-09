@@ -8,6 +8,8 @@ use App\Modules\Admin\Brand\Interfaces\BrandInterface;
 use App\Modules\Admin\Brand\Services\BrandService;
 use App\Modules\Admin\Category\Interfaces\CategoryInterface;
 use App\Modules\Admin\Category\Services\CategoryService;
+use App\Modules\Admin\Product\Interfaces\ProductInterface;
+use App\Modules\Admin\Product\Services\ProductService;
 use App\Modules\Media\Interfaces\MediaInterface;
 use App\Modules\Media\Services\MediaService;
 use Illuminate\Support\ServiceProvider;
@@ -25,6 +27,7 @@ class InterfaceServiceProvider extends ServiceProvider
         $this->app->singleton(MediaInterface::class, MediaService::class);
         $this->app->singleton(CategoryInterface::class, CategoryService::class);
         $this->app->singleton(BrandInterface::class, BrandService::class);
+        $this->app->singleton(ProductInterface::class, ProductService::class);
     }
 
     /**

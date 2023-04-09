@@ -37,3 +37,55 @@
 .cursor-pointer {
     cursor: pointer;
 }
+
+.upload__btn-box {
+    margin-bottom: 10px;
+}
+.upload__img-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+}
+.upload__img-box {
+    width: 118px;
+    padding: 0 10px;
+    margin-bottom: 12px;
+}
+.upload__img-close {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-align: center;
+    line-height: 24px;
+    z-index: 1;
+    cursor: pointer;
+}
+.upload__img-close:after {
+    content: "✖";
+    font-size: 14px;
+    color: white;
+}
+
+.img-bg {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    padding-bottom: 100%;
+}
+
+.image-table {
+    box-shadow: 3px 6px 15px #cecece;
+    border-radius: 9px;
+    transition: 0.4s;
+}
+
+.image-table:hover {
+    box-shadow: 3px 6px 15px #828282;
+    border-radius: 9px;
+    transition: 0.4s;
+}

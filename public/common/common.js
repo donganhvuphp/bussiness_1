@@ -21,6 +21,47 @@ const COMMON = (function () {
         swal("Thành công!", content, "success");
     };
 
+    modules.previewMultipleImage = function () {
+        let imgArray = [];
+        $(document).on('change', '.upload_multiple',function (e) {
+            let imgWrap = $(document).find('.upload__img-wrap');
+            let maxLength = $(this).data('max_length');
+            let filesArr = Array.prototype.slice.call(e.target.files);
+            filesArr.forEach(f => {
+                if (f.type.match('image.*') && imgArray.length <= maxLength) {
+                    imgArray.push(f);
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        imgWrap.append(`
+                            <div class='upload__img-box'>
+                                <div style="background-image: url('${e.target.result}')" data-number='${$(".upload__img-close").length}' data-file='${f.name}' class='img-bg'>
+                                    <div class='upload__img-close'></div>
+                                </div>
+                            </div>
+                        `);
+                    };
+                    reader.readAsDataURL(f);
+                }
+            });
+            modules.cloneFile(imgArray, "input[name='sub_image[]']");
+        });
+
+        $(document).on('click', ".upload__img-close", function (e) {
+            let index = imgArray.findIndex(item => item.name === $(this).parent().data("file"));
+            if(index > -1) {
+                imgArray.splice(index, 1);
+            }
+            modules.cloneFile(imgArray, "input[name='sub_image[]']");
+            $(this).parent().parent().remove();
+        });
+    };
+
+    modules.cloneFile = function (imgArray, inputFile) {
+        let transfer = new DataTransfer();
+        imgArray.map(item => transfer.items.add(item));
+        $(document).find(inputFile)[0].files = transfer.files;
+    };
+
     modules.previewImage = function (previewIn, previewOut) {
         let imageFile = previewIn.target.files[0];
         let reader = new FileReader();
@@ -44,9 +85,7 @@ const COMMON = (function () {
         const selector = $(`${errorSelector}[style!="display: none;"]`);
         const stickyBarHeight = $('form .position-sticky.sticky-bar').first().height() || 100;
         const sidebarHeight = $('#sidebar-mobile').height();
-        if (
-            selector.length > 0
-        ) {
+        if (selector.length) {
             $("html, body").animate(
                 {
                     scrollTop: selector.first().parent().offset().top - (stickyBarHeight + sidebarHeight),

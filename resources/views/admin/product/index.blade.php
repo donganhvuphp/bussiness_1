@@ -1,7 +1,7 @@
 @extends('admin.layouts.admin')
 
 @section('title')
-    {{ __('Danh sách thương hiệu') }}
+    {{ __('Danh sách sản phẩm') }}
 @endsection
 @section('css-after')
 @endsection
@@ -9,21 +9,21 @@
 @section('content')
     <div class="app-title">
         <div>
-            <h1><i class="fa fa-dashboard"></i>{{ __('Danh sách thương hiệu') }}</h1>
-            <p>{{ __('Thông tin thương hiệu') }}</p>
+            <h1><i class="fa fa-dashboard"></i>{{ __('Danh sách sản phẩm') }}</h1>
+            <p>{{ __('Thông tin sản phẩm') }}</p>
         </div>
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
-            <li class="breadcrumb-item"><a href="#">{{ __('Danh sách thương hiệu') }}</a></li>
+            <li class="breadcrumb-item"><a href="#">{{ __('Danh sách sản phẩm') }}</a></li>
         </ul>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="tile" id="list-brand">
+            <div class="tile" id="list-product">
                 <div class="d-flex justify-content-between">
-                    <h3 class="tile-title">{{ __('Danh sách thương hiệu') }}</h3>
+                    <h3 class="tile-title">{{ __('Danh sách sản phẩm') }}</h3>
                     <p>
-                        <a class="btn btn-primary icon-btn" href="{{ route('admin.brands.create')  }}"><i class="fa fa-plus"></i>{{ __('Thêm mới') }}</a>
+                        <a class="btn btn-primary icon-btn" href="{{ route('admin.products.create')  }}"><i class="fa fa-plus"></i>{{ __('Thêm mới') }}</a>
                     </p>
                 </div>
                 <div class="w-30 ml-0 mb-3 position-relative">
@@ -34,18 +34,21 @@
                     <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th>{{ __('Tên thương hiệu') }}</th>
+                        <th>{{ __('Tên sản phẩm') }}</th>
                         <th>{{ __('Hình ảnh') }}</th>
+                        <th>{{ __('Thương hiệu') }}</th>
+                        <th>{{ __('Danh mục') }}</th>
+                        <th>{{ __('Trạng thái') }}</th>
                         <th>{{ __('Ngày tạo') }}</th>
                         <th>{{ __('Tùy chọn') }}</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @include('admin.brand.table')
+                        @include('admin.product.table')
                     </tbody>
                 </table>
                 <div class="render-paginate">
-                    {{ $brands->links('pagination.custom') }}
+                    {{ $products->links('pagination.custom') }}
                 </div>
             </div>
         </div>
@@ -53,6 +56,6 @@
 @endsection
 
 @section('script-after')
-    <script src="{{ asset('admin_assets/js/brand.js') }}" type="module"></script>
+    <script src="{{ asset('admin_assets/js/product.js') }}" type="module"></script>
 @endsection
 

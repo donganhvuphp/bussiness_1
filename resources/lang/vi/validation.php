@@ -163,6 +163,12 @@ return [
         ],
         'password_confirmation' => [
             'same' => ':attribute không chính xác.',
+        ],
+        'brand_id' => [
+            'required' => 'Vui lòng chọn :attribute.',
+        ],
+        'category_id' => [
+            'required' => 'Vui lòng chọn :attribute.',
         ]
     ],
 
@@ -227,6 +233,9 @@ return [
         'tax_code'                  => 'Mã số thuế TNCN',
         'citizen_identification'    => 'Số CCCD/Hộ chiếu',
         'role_concurrently_id.*'      => 'Quyền kiêm nhiệm',
+        'brand_id'      => 'Thương hiệu',
+        'category_id'      => 'Danh mục',
+        'sub_image'      => 'Ảnh phụ',
     ],
 
 ];

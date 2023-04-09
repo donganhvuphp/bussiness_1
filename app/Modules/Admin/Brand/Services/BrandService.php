@@ -4,8 +4,10 @@ namespace App\Modules\Admin\Brand\Services;
 
 use App\Modules\Admin\Brand\Interfaces\BrandInterface;
 use App\Modules\Admin\Brand\Models\Brand;
+use App\Modules\Media\Interfaces\MediaInterface;
 use App\Services\BaseService;
 use Exception;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -16,9 +18,12 @@ use Illuminate\Http\Request;
  */
 class BrandService extends BaseService implements BrandInterface
 {
-    public function __construct(Brand $brand)
+    protected MediaInterface $mediaInterface;
+
+    public function __construct(Brand $brand, MediaInterface $mediaInterface)
     {
         $this->model = $brand;
+        $this->mediaInterface = $mediaInterface;
     }
 
     /**
@@ -29,9 +34,12 @@ class BrandService extends BaseService implements BrandInterface
     public function handleBrand(Request $request): bool
     {
         if ($request->id) {
-           return $this->getById($request->id)->update($request->only('name'));
+            $handle = $this->getById($request->id);
+            $handle->update($request->only('name'));
+        } else {
+            $handle = $this->create($request->only('name'));
         }
-        return (bool) $this->create($request->only('name'));
+        return $this->uploadAvatar($handle, $request, $handle);
     }
 
     /**
@@ -52,7 +60,9 @@ class BrandService extends BaseService implements BrandInterface
      */
     public function delete($brand): ?bool
     {
-        return $this->deleteById($brand);
+        $brand = $this->getById($brand);
+        $this->mediaInterface->deleteExistingFile($brand->getMedia(Brand::TAG_AVATAR)->first());
+        return $brand->delete();
     }
 
     /**
@@ -64,5 +74,29 @@ class BrandService extends BaseService implements BrandInterface
     public function show($brand): Model
     {
         return $this->getById($brand);
+    }
+
+    /**
+     * @param $update
+     * @param $request
+     * @param $model
+     *
+     * @return bool
+     */
+    private function uploadAvatar($update, $request, $model): bool
+    {
+        if ($update) {
+            if ($request->hasFile('avatar')) {
+                $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'admin');
+            }
+            if (!empty($media) && $model->hasMedia(Brand::TAG_AVATAR)) {
+                $this->mediaInterface->deleteExistingFile($model->getMedia(Brand::TAG_AVATAR)->first());
+            }
+            empty($media) ?: $model->syncMedia($media, Brand::TAG_AVATAR);
+
+            return true;
+        }
+
+        return false;
     }
 }

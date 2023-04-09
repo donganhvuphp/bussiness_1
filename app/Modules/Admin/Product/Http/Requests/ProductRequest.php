@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Modules\Admin\Brand\Http\Requests;
+namespace App\Modules\Admin\Product\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
- * Class BrandRequest
+ * Class ProductRequest
  *
- * @package App\Modules\Admin\Brand\Http\Requests
+ * @package App\Modules\Admin\Product\Http\Requests
  */
-class BrandRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -33,7 +33,7 @@ class BrandRequest extends FormRequest
             'name' => [
                 'required',
                 'max:255',
-                Rule::unique('brands')->ignore($this->id)
+                Rule::unique('products')->ignore($this->id)
             ],
             'avatar' => [
                 $this->id ? 'sometimes' : 'required',
@@ -41,6 +41,13 @@ class BrandRequest extends FormRequest
                 'max:'.config('upload.file_max_size'),
                 'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
             ],
+            'category_id' => 'required',
+            'brand_id' => 'required',
+            'sub_image.*' => [
+                'file',
+                'max:'.config('upload.file_max_size'),
+                'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
+            ]
         ];
     }
 }

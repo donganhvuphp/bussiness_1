@@ -85,6 +85,11 @@ abstract class BaseService
         return $models;
     }
 
+    public function fillable()
+    {
+        return $this->model->fillable;
+    }
+
     /**
      * Count the number of specified model records in the database.
      *

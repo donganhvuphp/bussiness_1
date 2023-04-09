@@ -1,6 +1,6 @@
 import {COMMON} from "../../common/common.js";
 
-const BRAND = (function () {
+const PRODUCT = (function () {
     let modules = {};
 
     modules.handle = function (e) {
@@ -50,8 +50,8 @@ const BRAND = (function () {
             },
             success: function (res) {
                 if (res.success) {
-                    $('#list-brand table tbody').html(res.data.html);
-                    $('#list-brand .render-paginate').html(res.data.pagination);
+                    $('#list-product table tbody').html(res.data.html);
+                    $('#list-product .render-paginate').html(res.data.pagination);
                 } else {
                     toastr.error('Đã xảy ra lỗi hệ thống');
                 }
@@ -65,7 +65,7 @@ const BRAND = (function () {
     modules.delete = function (id, callback) {
         $.ajax({
             type: 'DELETE',
-            url: `/admin/brands/${id}`,
+            url: `/admin/products/${id}`,
             dataType: 'json',
             beforeSend: function () {
                 COMMON.loading(true);
@@ -88,31 +88,31 @@ const BRAND = (function () {
 })(window.jQuery, window, document);
 
 $(document).ready(function () {
-    $(`#handle-brand`).on('submit', BRAND.handle);
+    $(`#handle-product`).on('submit', PRODUCT.handle);
 
-    $(document).on('click', '#list-brand .pagination a', function (e) {
+    $(document).on('click', '#list-product .pagination a', function (e) {
         e.preventDefault();
         let keySearch = $("input[name='key_search']").val().trim();
-        BRAND.getList($(this).attr('href'), {key_search: keySearch});
+        PRODUCT.getList($(this).attr('href'), {key_search: keySearch});
     });
 
     $(document).on('keyup', "input[name='key_search']", COMMON.debounce(function () {
-        BRAND.getList('/admin/brands/', {key_search: $(this).val().trim()});
+        PRODUCT.getList('/admin/products/', {key_search: $(this).val().trim()});
     }, 500));
 
 
-    $(document).on('click', '.delete-brand', function () {
+    $(document).on('click', '.delete-product', function () {
         COMMON.confirmDelete(() => {
-            BRAND.delete($(this).data('id'), () => {
-                BRAND.getList(
-                    '/admin/brands/',
+            PRODUCT.delete($(this).data('id'), () => {
+                PRODUCT.getList(
+                    '/admin/products/',
                     {key_search: $("input[name='key_search']").val().trim()}
                 )
             })
         })
     });
 
-    $(document).on('click', '.edit-brand', function () {
+    $(document).on('click', '.edit-product', function () {
         window.location.href = $(this).data('url');
     });
 
@@ -120,4 +120,6 @@ $(document).ready(function () {
         $('#image-preview').removeClass('d-none');
         COMMON.previewImage(data, '#image-preview');
     });
+
+    COMMON.previewMultipleImage();
 });

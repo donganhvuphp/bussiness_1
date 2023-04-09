@@ -8,6 +8,7 @@
 <script src="{{ asset('admin_assets/js/plugins/pace.min.js') }}"></script>
 <!-- Page specific javascripts-->
 <script type="text/javascript" src="{{ asset('admin_assets/js/plugins/chart.js') }}"></script>
+<script src="{{ asset('common/ckeditor.js') }}"></script>
 <script type="text/javascript">
     if(document.location.hostname == 'pratikborsadiya.in') {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -23,4 +24,12 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    if ($(document).find('.ckeditor').length) {
+        ClassicEditor
+            .create(document.querySelector('.ckeditor' ))
+            .catch(error => {
+                console.log(error);
+            });
+    }
 </script>
