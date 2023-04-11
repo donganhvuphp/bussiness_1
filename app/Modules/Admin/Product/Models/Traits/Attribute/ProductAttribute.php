@@ -16,6 +16,20 @@ trait ProductAttribute
     }
 
     /**
+     * @return mixed
+     */
+    public function getSubImageAttribute(): mixed
+    {
+        $result = $this->getMedia(self::TAG_SUB_IMAGE);
+        return $result->map(function ($data) {
+            return [
+                'id' => $data->id,
+                'url' => $data->getUrl(),
+            ];
+        });
+    }
+
+    /**
      * @return string
      */
     public function getStatusDescriptionAttribute(): string

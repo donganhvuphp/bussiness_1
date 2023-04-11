@@ -84,6 +84,42 @@ const PRODUCT = (function () {
         });
     };
 
+    modules.appendStorehouse = function (storehouseArea, storehouseSub) {
+        storehouseArea.append(`
+            <div class="col-12 storehouse-sub mb-3">
+                <div class="row w-100">
+                    <div class="col-5">
+                        <label>Size:</label>
+                        <input name="storehouse[${storehouseSub + 1}][name]" class="form-control" >
+                    </div>
+                    <div class="col-5">
+                        <label>Số lượng:</label>
+                        <input name="storehouse[${storehouseSub + 1}][quantity]" class="form-control" type="number">
+                    </div>
+                    <div class="col-2 mt-1">
+                        <div class="btn btn-primary icon-btn mt-4 btn-storehouse">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row error-message error_storehouse_${storehouseSub + 1}_name"></div>
+                <div class="error-message error_storehouse_${storehouseSub + 1}_quantity"></div>
+            </div>
+        `)
+    };
+
+    modules.renameInputStorehouse = function (storehouseArea) {
+        storehouseArea.find('.storehouse-sub').map((index, element) => {
+            $(element).find('input:first').attr('name', `storehouse[${index + 1}][name]`);
+            $(element).find('input:last').attr('name', `storehouse[${index + 1}][quantity]`);
+            $(element).find('.error-message').remove();
+            $(element).append(`
+                <div class="error-message error_storehouse_${index + 1}_name"></div>
+                <div class="error-message error_storehouse_${index + 1}_quantity"></div>
+            `)
+        });
+    };
+
     return modules;
 })(window.jQuery, window, document);
 
@@ -122,4 +158,34 @@ $(document).ready(function () {
     });
 
     COMMON.previewMultipleImage();
+
+    $(document).on('click', '.remove-sub-image', function () {
+        $('#handle-product').append(`
+            <input name="sub_image_remove[]" value="${$(this).data('sub_image_remove')}" type="hidden"/>
+        `);
+    });
+
+    $(document).on('click', '.btn-storehouse', function () {
+        const isFirst = 1;
+        const isSecond = 2;
+        const maxSub = 20;
+        const isPlus = $(this).children().hasClass('fa-plus');
+        let storehouseArea = $(this).parents('.storehouse-area');
+        let storehouseSub = storehouseArea.find('.storehouse-sub').length;
+
+        if (!isPlus && storehouseSub > isFirst) {
+            $(this).parents('.storehouse-sub').remove();
+            let btnClass = (storehouseSub === isSecond) ? 'fa-plus' : 'fa-minus';
+            storehouseArea.find('.btn-storehouse:first').empty().append(`<i class="fa ${btnClass} "></i>`);
+            PRODUCT.renameInputStorehouse(storehouseArea);
+            return;
+        }
+
+        if (storehouseSub === isFirst) {
+            $(this).empty().append(`<i class="fa fa-minus"></i>`);
+        }
+        if (storehouseSub < maxSub) {
+            PRODUCT.appendStorehouse(storehouseArea, storehouseSub)
+        }
+    });
 });

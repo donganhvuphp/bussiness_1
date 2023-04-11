@@ -3,8 +3,6 @@
 namespace App\Modules\Admin\Product\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Modules\Admin\Brand\Interfaces\BrandInterface;
-use App\Modules\Admin\Category\Interfaces\CategoryInterface;
 use App\Modules\Admin\Product\Http\Requests\ProductRequest;
 use App\Modules\Admin\Product\Interfaces\ProductInterface;
 use Illuminate\Contracts\Foundation\Application;
@@ -17,24 +15,16 @@ use Illuminate\Support\Facades\Log;
 class ProductController extends Controller
 {
     protected ProductInterface $productInterface;
-    protected BrandInterface $brandInterface;
-    protected CategoryInterface $categoryInterface;
 
     /**
      * ProductController constructor.
      *
      * @param ProductInterface  $productInterface
-     * @param BrandInterface    $brandInterface
-     * @param CategoryInterface $categoryInterface
      */
     public function __construct(
         ProductInterface $productInterface,
-        BrandInterface $brandInterface,
-        CategoryInterface $categoryInterface
     ) {
         $this->productInterface = $productInterface;
-        $this->brandInterface = $brandInterface;
-        $this->categoryInterface = $categoryInterface;
     }
 
     /**
@@ -60,9 +50,7 @@ class ProductController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        $brands = $this->brandInterface->all();
-        $categories = $this->categoryInterface->all();
-        return view('admin.product.form', compact('brands', 'categories'));
+        return view('admin.product.form');
     }
 
     /**

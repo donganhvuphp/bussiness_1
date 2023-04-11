@@ -18,7 +18,7 @@ interface MediaInterface
 
     /**
      * @param $media
-     *
+     * @param bool $is_first
      */
-    public function deleteExistingFile($media);
+    public function deleteExistingFile($media, bool $is_first = true);
 }

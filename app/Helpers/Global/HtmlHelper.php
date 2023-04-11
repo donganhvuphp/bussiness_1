@@ -24,3 +24,21 @@ if (!function_exists('indexTable')) {
     }
 }
 
+if (!function_exists('handleSelected')) {
+    /**
+     * @param null $compareFirst
+     * @param null $compareSecond
+     *
+     * @return string
+     */
+    function handleSelected($compareFirst = null, $compareSecond = null): string
+    {
+        $result = '';
+        if($compareFirst && $compareSecond && ($compareFirst == $compareSecond)) {
+            $result = 'selected';
+        }
+
+        return $result;
+    }
+}
+

@@ -42,12 +42,15 @@ class ProductRequest extends FormRequest
                 'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
             ],
             'category_id' => 'required',
+            'description' => 'required',
             'brand_id' => 'required',
             'sub_image.*' => [
                 'file',
                 'max:'.config('upload.file_max_size'),
                 'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
-            ]
+            ],
+            'storehouse.*.name' => 'required|distinct',
+            'storehouse.*.quantity' => 'required|numeric|min:1'
         ];
     }
 }

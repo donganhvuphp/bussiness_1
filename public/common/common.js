@@ -25,10 +25,11 @@ const COMMON = (function () {
         let imgArray = [];
         $(document).on('change', '.upload_multiple',function (e) {
             let imgWrap = $(document).find('.upload__img-wrap');
+            let subImageLength = imgWrap.find('.upload__img-box').length;
             let maxLength = $(this).data('max_length');
             let filesArr = Array.prototype.slice.call(e.target.files);
             filesArr.forEach(f => {
-                if (f.type.match('image.*') && imgArray.length <= maxLength) {
+                if (f.type.match('image.*') && imgArray.length <= maxLength && subImageLength <= maxLength) {
                     imgArray.push(f);
                     let reader = new FileReader();
                     reader.onload = function (e) {
@@ -40,6 +41,7 @@ const COMMON = (function () {
                             </div>
                         `);
                     };
+                    subImageLength++;
                     reader.readAsDataURL(f);
                 }
             });
@@ -119,10 +121,15 @@ const COMMON = (function () {
 
         if ('status' in response && response.status === 422) {
             $.each(response.responseJSON.errors, function (nameOld, message) {
-                let name = nameOld.replace('.', '_');
+                let name = nameOld.replaceAll('.', '_');
+                let nameSplit = nameOld.split('.');
                 $(parent).find(`.error_${name}`).text(message).show();
                 $(parent).find(`input[name="${name}"], textarea[name="${name}"]`).addClass('border-error');
-                $(parent).find(`select[name="${name}"]`).next().find('.select2-selection').addClass('border-error');
+                $(parent).find(`select[name="${name}"]`).addClass('border-error');
+                // $(parent).find(`select[name="${name}"]`).next().find('.select2-selection').addClass('border-error');
+                if(nameSplit.length === 3) {
+                    $(parent).find(`input[name="${nameSplit[0] + '[' + nameSplit[1] + ']' + '[' + nameSplit[2] + ']'}"]`).addClass('border-error');
+                }
             });
             if (scroll) {
                 modules.scrollToError();

@@ -382,6 +382,18 @@ abstract class BaseService
     }
 
     /**
+     * @param array $data
+     *
+     * @return bool
+     */
+    public function insert(array $data): bool
+    {
+        $this->unsetClauses();
+
+        return $this->model->insert($data);
+    }
+
+    /**
      * Create one or more new model records in the database.
      * @param array $data Data
      *

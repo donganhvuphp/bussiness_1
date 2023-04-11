@@ -67,7 +67,7 @@ class MediaService extends BaseService implements MediaInterface
         if (!$is_first) {
             foreach ($media as $value) {
                 $value->delete();
-                Storage::disk($media->disk)->delete($media->getDiskPath());
+                Storage::disk($value->disk)->delete($value->getDiskPath());
             }
         } else {
             $media->delete();

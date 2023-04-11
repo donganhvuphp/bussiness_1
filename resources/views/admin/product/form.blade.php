@@ -48,8 +48,8 @@
                                     </label>
                                 </div>
                                 <div class="avatar-preview mt-2 mb-1">
-                                    <img class="profile-user-img img-responsive img-circle object-fit-cover d-none"
-                                         height="150" width="150" id="image-preview" alt="User profile picture">
+                                    <img class="profile-user-img img-responsive img-circle object-fit-cover {{ !empty($product->avatar) ?: 'd-none' }}"
+                                         height="150" width="150" id="image-preview" alt="User profile picture" src="{{ $product->avatar ?? '' }}">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                             <select name="category_id" class="form-control" >
                                 <option value="">{{ __('Chọn danh mục') }}</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ handleSelected($category->id, $product->category_id ?? null) }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                             <div class="error-message error_category_id"></div>
@@ -73,7 +73,7 @@
                             <select name="brand_id" class="form-control" >
                                 <option value="">{{ __('Chọn nhãn hiệu') }}</option>
                                 @foreach($brands as $brand)
-                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}" {{ handleSelected($brand->id, $product->brand_id ?? null) }}>{{ $brand->name }}</option>
                                 @endforeach
                             </select>
                             <div class="error-message error_brand_id"></div>
@@ -94,7 +94,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 row upload__img-wrap"></div>
+                        <div class="col-12 row upload__img-wrap">
+                            @if(!empty($product->sub_image))
+                                @foreach($product->sub_image as $subImage)
+                                    <div class="upload__img-box">
+                                        <div style="background-image: url('{{ $subImage['url'] }}')" data-number="0" data-file="download (6).jpeg" class="img-bg">
+                                            <div class="upload__img-close remove-sub-image" data-sub_image_remove="{{ $subImage['id'] }}"></div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
                         <div class="col-12 row error-message error_sub_image"></div>
                     </div>
                     <div class="row mb-4">
@@ -105,6 +115,19 @@
                             </textarea>
                             <div class="error-message error_description"></div>
                         </div>
+                    </div>
+                    <div class="row mb-4 storehouse-area">
+                        @if(!empty($product->storehouses) && $product->storehouses->count())
+                            @foreach($product->storehouses as $key => $storehouse)
+                                @include('admin.product.storehouse', [
+                                    'index' => $key + 1,
+                                    'name' => $storehouse->name,
+                                    'quantity' => $storehouse->quantity
+                                ])
+                            @endforeach
+                        @else
+                            @include('admin.product.storehouse', ['index' => 1])
+                        @endif
                     </div>
                     <div class="row mb-10">
                         <div class="col-md-12">

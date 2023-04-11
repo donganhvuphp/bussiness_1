@@ -3,6 +3,7 @@
 namespace App\Modules\Admin\Product\Models;
 
 use App\Modules\Admin\Product\Models\Traits\Attribute\ProductAttribute;
+use App\Modules\Admin\Product\Models\Traits\Method\ProductMethod;
 use App\Modules\Admin\Product\Models\Traits\Relationship\ProductRelationship;
 use App\Modules\Admin\Product\Models\Traits\Scope\ProductScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +17,7 @@ use Plank\Mediable\Mediable;
  */
 class Product extends Model
 {
-    use HasFactory, Mediable, ProductScope, ProductAttribute, ProductRelationship;
+    use HasFactory, Mediable, ProductScope, ProductAttribute, ProductRelationship, ProductMethod;
 
     protected $table = 'products';
 
@@ -31,12 +32,14 @@ class Product extends Model
 
     protected $with = [
         'category',
-        'brand'
+        'brand',
+        'storehouses'
     ];
 
     protected $hidden = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'media'
     ];
 
     public const TAG_AVATAR = 'avatar';

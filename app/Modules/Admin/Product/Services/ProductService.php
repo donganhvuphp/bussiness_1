@@ -4,6 +4,7 @@ namespace App\Modules\Admin\Product\Services;
 
 use App\Modules\Admin\Product\Interfaces\ProductInterface;
 use App\Modules\Admin\Product\Models\Product;
+use App\Modules\Admin\Storehouse\Interfaces\StorehouseInterface;
 use App\Modules\Media\Interfaces\MediaInterface;
 use App\Services\BaseService;
 use Exception;
@@ -18,11 +19,17 @@ use Illuminate\Http\Request;
 class ProductService extends BaseService implements ProductInterface
 {
     protected MediaInterface $mediaInterface;
+    protected StorehouseInterface $storehouseInterface;
 
-    public function __construct(Product $product, MediaInterface $mediaInterface)
+    public function __construct(
+        Product $product,
+        MediaInterface $mediaInterface,
+        StorehouseInterface $storehouseInterface
+    )
     {
         $this->model = $product;
         $this->mediaInterface = $mediaInterface;
+        $this->storehouseInterface = $storehouseInterface;
     }
 
     /**
@@ -39,13 +46,45 @@ class ProductService extends BaseService implements ProductInterface
             $handle = $this->create($this->formatData($request->only($this->fillable())));
         }
 
+        if ($request->storehouse) {
+            $this->handleStorehouse($handle, $request->storehouse);
+        }
+
         $this->uploadAvatar($handle, $request);
         $this->uploadSubImage($handle, $request);
 
         return true;
     }
 
-    public function formatData($params)
+    /**
+     * @param $model
+     * @param $storehouse
+     *
+     * @return bool
+     */
+    public function handleStorehouse($model, $storehouse): bool
+    {
+        if ($model) {
+            $data = array_map(function ($storehouse) use($model) {
+                return [
+                    'product_id' => $model->id,
+                    'name' => strtoupper($storehouse['name']),
+                    'quantity' => $storehouse['quantity'],
+                ];
+            }, $storehouse);
+            $model->storehouses()->delete();
+            return $this->storehouseInterface->insertStorehouse($data);
+        }
+
+        return false;
+    }
+
+    /**
+     * @param $params
+     *
+     * @return mixed
+     */
+    public function formatData($params): mixed
     {
         $params['status'] = INACTIVE;
         $params['slug'] = generateSlug($params['name']);
@@ -122,10 +161,11 @@ class ProductService extends BaseService implements ProductInterface
                     }
                 }
             }
-            if (!empty($media) && $model->hasMedia(Product::TAG_SUB_IMAGE)) {
-                $this->mediaInterface->deleteExistingFile($model->getMedia(Product::TAG_SUB_IMAGE));
+            if (!empty($request->sub_image_remove)) {
+                $this->mediaInterface->deleteExistingFile($model->getSubImageByIdMethod($request->sub_image_remove), false);
+                $model->detachMedia($request->sub_image_remove);
             }
-            empty($media) ?: $model->syncMedia($media, Product::TAG_SUB_IMAGE);
+            empty($media) ?: $model->attachMedia($media, Product::TAG_SUB_IMAGE);
         }
     }
 }

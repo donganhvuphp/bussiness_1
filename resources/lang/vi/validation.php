@@ -184,6 +184,8 @@ return [
     */
 
     'attributes' => [
+        'storehouse.*.name'                   => 'Size',
+        'storehouse.*.quantity'                   => 'Số lượng',
         'address'                   => 'Địa chỉ',
         'age'                       => 'Tuổi',
         'available'                 => 'Có sẵn',
