@@ -30,7 +30,7 @@
                     <div class="row mb-4">
                         <div class="col-12">
                             <label>{{ __('Tên sản phẩm:') }}</label>
-                            <input name="name" value="{{ $product->name ?? '' }}" class="form-control" type="text">
+                            <input name="name" value="{{ $product->name ?? '' }}" class="form-control" type="text" placeholder="Nhập tên sản phẩm">
                             <div class="error-message error_name"></div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                     <div class="row mb-4">
                         <div class="col-12">
                             <label>{{ __('Danh mục sản phẩm:') }}</label>
-                            <select name="category_id" class="form-control" >
+                            <select name="category_id" class="select2-multiple form-control" >
                                 <option value="">{{ __('Chọn danh mục') }}</option>
                                 @foreach($categories as $category)
                                     <option value="{{ $category->id }}" {{ handleSelected($category->id, $product->category_id ?? null) }}>{{ $category->name }}</option>
@@ -70,7 +70,7 @@
                     <div class="row mb-4">
                         <div class="col-12">
                             <label>{{ __('Thương hiệu sản phẩm:') }}</label>
-                            <select name="brand_id" class="form-control" >
+                            <select name="brand_id" class="select2-multiple form-control" >
                                 <option value="">{{ __('Chọn nhãn hiệu') }}</option>
                                 @foreach($brands as $brand)
                                     <option value="{{ $brand->id }}" {{ handleSelected($brand->id, $product->brand_id ?? null) }}>{{ $brand->name }}</option>

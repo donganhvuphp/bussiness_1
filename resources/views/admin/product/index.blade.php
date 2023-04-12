@@ -38,6 +38,7 @@
                         <th>{{ __('Hình ảnh') }}</th>
                         <th>{{ __('Thương hiệu') }}</th>
                         <th>{{ __('Danh mục') }}</th>
+                        <th>{{ __('Số lượng') }}</th>
                         <th>{{ __('Trạng thái') }}</th>
                         <th>{{ __('Ngày tạo') }}</th>
                         <th>{{ __('Tùy chọn') }}</th>

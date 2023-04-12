@@ -126,7 +126,7 @@ const COMMON = (function () {
                 $(parent).find(`.error_${name}`).text(message).show();
                 $(parent).find(`input[name="${name}"], textarea[name="${name}"]`).addClass('border-error');
                 $(parent).find(`select[name="${name}"]`).addClass('border-error');
-                // $(parent).find(`select[name="${name}"]`).next().find('.select2-selection').addClass('border-error');
+                $(parent).find(`select[name="${name}"]`).next().find('.select2-selection').addClass('border-error');
                 if(nameSplit.length === 3) {
                     $(parent).find(`input[name="${nameSplit[0] + '[' + nameSplit[1] + ']' + '[' + nameSplit[2] + ']'}"]`).addClass('border-error');
                 }

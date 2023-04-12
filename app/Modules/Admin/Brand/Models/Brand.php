@@ -18,5 +18,9 @@ class Brand extends Model
         'name'
     ];
 
+    protected $with = [
+        'media'
+    ];
+
     public const TAG_AVATAR = 'avatar';
 }

@@ -1,4 +1,5 @@
 <script src="{{ asset('admin_assets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.full.js"></script>
 <script src="{{ asset('common/toastr.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/popper.min.js') }}"></script>
 <script src="{{ asset('admin_assets/js/bootstrap.min.js') }}"></script>
@@ -32,4 +33,13 @@
                 console.log(error);
             });
     }
+
+    $(document).ready(function() {
+        // Select2 Multiple
+        $('.select2-multiple').select2({
+            placeholder: "Lựa chọn",
+            allowClear: true
+        });
+
+    });
 </script>

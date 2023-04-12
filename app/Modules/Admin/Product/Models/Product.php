@@ -33,7 +33,8 @@ class Product extends Model
     protected $with = [
         'category',
         'brand',
-        'storehouses'
+        'storehouses',
+        'media'
     ];
 
     protected $hidden = [

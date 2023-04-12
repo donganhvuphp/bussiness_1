@@ -5,6 +5,15 @@
         <td><img src="{{ asset($product->avatar) }}" width="100" height="100" class="object-fit-cover image-table" alt=""></td>
         <td><img src="{{ asset($product->brand->avatar) }}" width="100" height="100" class="object-fit-cover image-table" alt=""></td>
         <td>{{ $product->category->name }}</td>
+        <td>
+            @if($product->quantity)
+                {{ $product->quantity }}
+            @else
+                <div class="color-red">
+                    {{ __('Hết hàng') }}
+                </div>
+            @endif
+        </td>
         <td>{{ $product->status_description }}</td>
         <td>{{ formatTime($product->created_at) }}</td>
         <td>

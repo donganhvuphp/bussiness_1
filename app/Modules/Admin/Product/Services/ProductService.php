@@ -39,17 +39,16 @@ class ProductService extends BaseService implements ProductInterface
      */
     public function handleProduct(Request $request): bool
     {
+        $data = $this->formatData($request->only($this->fillable()));
         if ($request->id) {
             $handle = $this->getById($request->id);
-            $handle->update($request->only('name'));
+            $handle->update($data);
         } else {
-            $handle = $this->create($this->formatData($request->only($this->fillable())));
+            $handle = $this->create($data);
         }
-
         if ($request->storehouse) {
             $this->handleStorehouse($handle, $request->storehouse);
         }
-
         $this->uploadAvatar($handle, $request);
         $this->uploadSubImage($handle, $request);
 
@@ -110,7 +109,11 @@ class ProductService extends BaseService implements ProductInterface
      */
     public function delete($product): ?bool
     {
-        return $this->deleteById($product);
+        $product = $this->getById($product);
+        $this->mediaInterface->deleteExistingFile($product->getMedia(Product::TAG_AVATAR)->first());
+        $this->mediaInterface->deleteExistingFile($product->getMedia(Product::TAG_SUB_IMAGE), false);
+
+        return $product->delete();
     }
 
     /**

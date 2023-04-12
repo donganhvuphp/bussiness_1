@@ -39,4 +39,17 @@ trait ProductAttribute
             ACTIVE => 'Đang bán',
         };
     }
+
+    /**
+     * @return string
+     */
+    public function getQuantityAttribute(): string
+    {
+        $count = 0;
+        if($this->storehouses->count()) {
+            $count = $this->storehouses->sum('quantity');
+        }
+
+        return $count;
+    }
 }

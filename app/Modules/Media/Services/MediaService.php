@@ -64,12 +64,12 @@ class MediaService extends BaseService implements MediaInterface
      */
     public function deleteExistingFile($media, bool $is_first = true): void
     {
-        if (!$is_first) {
+        if (!$is_first && $media) {
             foreach ($media as $value) {
                 $value->delete();
                 Storage::disk($value->disk)->delete($value->getDiskPath());
             }
-        } else {
+        } else if($media) {
             $media->delete();
             Storage::disk($media->disk)->delete($media->getDiskPath());
         }
