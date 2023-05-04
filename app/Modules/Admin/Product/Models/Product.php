@@ -28,6 +28,9 @@ class Product extends Model
         'slug',
         'status',
         'description',
+        'price',
+        'is_featured',
+        'introduce',
     ];
 
     protected $with = [

@@ -39,7 +39,7 @@ class ProductService extends BaseService implements ProductInterface
      */
     public function handleProduct(Request $request): bool
     {
-        $data = $this->formatData($request->only($this->fillable()));
+        $data = $this->formatData($request->only($this->fillable()), !empty($request->id));
         if ($request->id) {
             $handle = $this->getById($request->id);
             $handle->update($data);
@@ -80,13 +80,16 @@ class ProductService extends BaseService implements ProductInterface
 
     /**
      * @param $params
+     * @param $isUpdate
      *
      * @return mixed
      */
-    public function formatData($params): mixed
+    public function formatData($params, $isUpdate): mixed
     {
-        $params['status'] = INACTIVE;
-        $params['slug'] = generateSlug($params['name']);
+        if (!$isUpdate) {
+            $params['status'] = INACTIVE;
+            $params['slug'] = generateSlug($params['name']);
+        }
 
         return $params;
     }
@@ -170,5 +173,34 @@ class ProductService extends BaseService implements ProductInterface
             }
             empty($media) ?: $model->attachMedia($media, Product::TAG_SUB_IMAGE);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param         $product
+     * @return bool
+     */
+    public function updateStatus(Request $request, $product): bool
+    {
+        return $this->getById($product)->update($request->only('status'));
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getIsFeatured(): mixed
+    {
+        return $this->model::getIsFeatured();
+    }
+
+    /**
+     * @param $slug
+     *
+     * @return mixed
+     */
+    public function getBySlug($slug): mixed
+    {
+        return $this->model::getBySlug($slug);
     }
 }

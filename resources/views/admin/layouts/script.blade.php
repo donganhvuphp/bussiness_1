@@ -10,6 +10,7 @@
 <!-- Page specific javascripts-->
 <script type="text/javascript" src="{{ asset('admin_assets/js/plugins/chart.js') }}"></script>
 <script src="{{ asset('common/ckeditor.js') }}"></script>
+<script src="{{ asset('common/bootstrap-datepicker.min.js') }}"></script>
 <script type="text/javascript">
     if(document.location.hostname == 'pratikborsadiya.in') {
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -41,5 +42,9 @@
             allowClear: true
         });
 
+        $('.datepicker').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true
+        });
     });
 </script>

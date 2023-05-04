@@ -35,4 +35,24 @@ interface ProductInterface
      * @return mixed
      */
     public function show($product): mixed;
+
+    /**
+     * @param Request $request
+     * @param         $product
+     *
+     * @return mixed
+     */
+    public function updateStatus(Request $request, $product): mixed;
+
+    /**
+     * @return mixed
+     */
+    public function getIsFeatured(): mixed;
+
+    /**
+     * @param $slug
+     *
+     * @return mixed
+     */
+    public function getBySlug($slug): mixed;
 }

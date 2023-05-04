@@ -20,4 +20,13 @@ trait CategoryScope
             $q->where('name', 'like', '%' . escapeLike($request->key_search) . '%');
         });
     }
+
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function scopeGetPublish($query): mixed
+    {
+        return $query->where('status', self::PUBLISH);
+    }
 }

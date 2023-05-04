@@ -53,6 +53,14 @@ class BrandService extends BaseService implements BrandInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getPublish(): mixed
+    {
+        return $this->model::getPublish()->get();
+    }
+
+    /**
      * @param $brand
      *
      * @return bool|null
@@ -87,7 +95,7 @@ class BrandService extends BaseService implements BrandInterface
     {
         if ($update) {
             if ($request->hasFile('avatar')) {
-                $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'admin');
+                $media = $this->mediaInterface->upload($request->file('avatar'), directory: 'brand');
             }
             if (!empty($media) && $model->hasMedia(Brand::TAG_AVATAR)) {
                 $this->mediaInterface->deleteExistingFile($model->getMedia(Brand::TAG_AVATAR)->first());

@@ -5,10 +5,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(
     [
         'prefix'     => '/',
-        'as'         => 'client.home.',
+        'as'         => 'client.',
     ],
     function () {
-        includeRouteFiles(__DIR__.'/client/home/');
+        includeRouteFiles(__DIR__.'/client/home');
+        includeRouteFiles(__DIR__.'/client/product_client');
     }
 );
 

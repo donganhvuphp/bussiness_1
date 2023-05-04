@@ -100,4 +100,23 @@ class ProductController extends Controller
             return $this->responseFailed(message: __('Xóa thất bại!'));
         }
     }
+
+    /**
+     * @param Request $request
+     * @param         $product
+     *
+     * @return JsonResponse
+     */
+    public function updateStatus(Request $request, $product): JsonResponse
+    {
+        try {
+            $this->productInterface->updateStatus($request, $product);
+
+            return $this->responseSuccess(message: __('Cập nhật thành công!'));
+        } catch (\Throwable $e) {
+            Log::info($e->getMessage());
+
+            return $this->responseFailed(message: __('Cập nhật thất bại!'));
+        }
+    }
 }

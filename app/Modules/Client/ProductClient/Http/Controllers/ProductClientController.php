@@ -1,13 +1,16 @@
 <?php
 
-namespace App\Modules\Client\Home\Http\Controllers;
+namespace App\Modules\Client\ProductClient\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Modules\Admin\Brand\Interfaces\BrandInterface;
 use App\Modules\Admin\Category\Interfaces\CategoryInterface;
 use App\Modules\Admin\Product\Interfaces\ProductInterface;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
-class HomeController extends Controller
+class ProductClientController extends Controller
 {
     protected BrandInterface $brandInterface;
     protected ProductInterface $productInterface;
@@ -24,12 +27,15 @@ class HomeController extends Controller
         $this->categoryInterface = $categoryInterface;
     }
 
-    public function index()
+    /**
+     * @param $slug
+     *
+     * @return Application|Factory|View
+     */
+    public function getBySlug($slug): View|Factory|Application
     {
-        $brands = $this->brandInterface->getPublish();
-        $categories = $this->categoryInterface->getPublish();
-        $productIsFeatured = $this->productInterface->getIsFeatured();
+        $product = $this->productInterface->getBySlug($slug);
 
-        return view('client.home.index', compact('brands', 'categories', 'productIsFeatured'));
+        return view('client.product.detail', compact('product'));
     }
 }

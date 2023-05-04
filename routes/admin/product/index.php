@@ -20,6 +20,9 @@ Route::group(
         Route::get('/{product}', [ProductController::class, 'show'])
             ->name('admin.products.show');
 
+        Route::post('/{product}', [ProductController::class, 'updateStatus'])
+            ->name('admin.products.updateStatus');
+
         Route::delete('/{product}', [ProductController::class, 'delete'])
             ->name('admin.products.delete');
     }

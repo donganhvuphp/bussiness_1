@@ -110,10 +110,26 @@
                     <div class="row mb-4">
                         <div class="col-12">
                             <label>{{ __('Giới thiệu sản phẩm:') }}</label>
-                            <textarea class="ckeditor form-control" name="description">
+                            <textarea class="form-control" rows="3" name="introduce">
+                                {{ $product->introduce ?? '' }}
+                            </textarea>
+                            <div class="error-message error_introduce"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <label>{{ __('Mô tả sản phẩm:') }}</label>
+                            <textarea class="ckeditor form-control" rows="5" name="description">
                                 {{ $product->description ?? '' }}
                             </textarea>
                             <div class="error-message error_description"></div>
+                        </div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <label>{{ __('Giá sản phẩm:') }}</label>
+                            <input name="price" value="{{ formatCurrency($product->price ?? '') }}" class="form-control" type="text" placeholder="Nhập giá sản phẩm">
+                            <div class="error-message error_price"></div>
                         </div>
                     </div>
                     <div class="row mb-4 storehouse-area">

@@ -23,6 +23,11 @@ interface BrandInterface
     public function search(Request $request);
 
     /**
+     * @return mixed
+     */
+    public function getPublish(): mixed;
+
+    /**
      * @param $brand
      *
      * @return mixed

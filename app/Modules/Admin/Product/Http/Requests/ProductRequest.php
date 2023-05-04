@@ -30,27 +30,47 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [
+            'name'                  => [
                 'required',
                 'max:255',
-                Rule::unique('products')->ignore($this->id)
+                Rule::unique('products')->ignore($this->id),
             ],
-            'avatar' => [
+            'avatar'                => [
                 $this->id ? 'sometimes' : 'required',
                 'file',
                 'max:'.config('upload.file_max_size'),
                 'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
             ],
-            'category_id' => 'required',
-            'description' => 'required',
-            'brand_id' => 'required',
-            'sub_image.*' => [
+            'category_id'           => 'required',
+            'description'           => 'required',
+            'introduce'             => 'required',
+            'brand_id'              => 'required',
+            'price'                 => 'required|numeric',
+            'sub_image.*'           => [
                 'file',
                 'max:'.config('upload.file_max_size'),
                 'mimetypes:'.implode(',', config('upload.image_mime_types_allow')),
             ],
-            'storehouse.*.name' => 'required|distinct',
-            'storehouse.*.quantity' => 'required|numeric|min:1'
+            'storehouse.*.name'     => 'required|distinct',
+            'storehouse.*.quantity' => 'required|numeric|min:1',
         ];
+    }
+
+    public function getValidatorInstance()
+    {
+        $this->formatPrice();
+
+        return parent::getValidatorInstance();
+    }
+
+    protected function formatPrice()
+    {
+        if ($this->request->has('price')) {
+            $this->merge(
+                [
+                    'price' => str_replace(',', '', request('price')),
+                ]
+            );
+        }
     }
 }

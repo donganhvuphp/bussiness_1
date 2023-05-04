@@ -79,12 +79,12 @@ return [
         'string'  => 'Độ dài trường :attribute phải nhỏ hơn hoặc bằng :value kí tự.',
     ],
     'max'                  => [
-        'array'   => ':attribute không được lớn hơn :max phần tử.',
-        'file'    => 'Dung lượng tập tin trong trường :attribute không được lớn hơn :max KB.',
-        'numeric' => ':attribute không được lớn hơn :max.',
-        'string'  => ':attribute không được vượt quá :max kí tự.',
+        'array'        => ':attribute không được lớn hơn :max phần tử.',
+        'file'         => 'Dung lượng tập tin trong trường :attribute không được lớn hơn :max KB.',
+        'numeric'      => ':attribute không được lớn hơn :max.',
+        'string'       => ':attribute không được vượt quá :max kí tự.',
         'number_files' => 'Số :attribute tải lên đã đạt đến giới hạn, tối đa :max.',
-        'file_mb'    => 'Dung lượng tập tin trong trường :attribute không được lớn hơn :max MB.',
+        'file_mb'      => 'Dung lượng tập tin trong trường :attribute không được lớn hơn :max MB.',
     ],
     'mimes'                => ':attribute phải là một tập tin có định dạng: :values.',
     'mimetypes'            => ':attribute phải là một tập tin có định dạng: :values.',
@@ -140,36 +140,52 @@ return [
     */
 
     'custom' => [
-        'files.*' => [
-            'max' => [
-                'file' => 'Dung lượng tập tin trong trường :attribute không được lớn hơn ' . config('upload.file_max_size') / 1024 .' KB.',
+        'files.*'               => [
+            'max'       => [
+                'file' => 'Dung lượng tập tin trong trường :attribute không được lớn hơn '.config(
+                        'upload.file_max_size'
+                    ) / 1024 .' KB.',
             ],
-            'mimes' => ':attribute phải là một tập tin có định dạng: ' . implode(', ', config('upload.image_mimes_allow')) .'.',
-            'mimetypes' => ':attribute phải là một tập tin có định dạng: ' . implode(', ', config('upload.image_mimes_allow')) . '.',
+            'mimes'     => ':attribute phải là một tập tin có định dạng: '.implode(
+                    ', ',
+                    config('upload.image_mimes_allow')
+                ).'.',
+            'mimetypes' => ':attribute phải là một tập tin có định dạng: '.implode(
+                    ', ',
+                    config('upload.image_mimes_allow')
+                ).'.',
         ],
-        'avatar' => [
-            'max' =>  'Dung lượng tập tin trong trường :attribute không được lớn hơn ' . config('upload.file_max_size') / 1024 .' MB.',
-            'mimes' => ':attribute phải là một tập tin có định dạng: ' . implode(', ', config('upload.image_mimes_allow')) .'.',
-            'mimetypes' => ':attribute phải là một tập tin có định dạng: ' . implode(', ', config('upload.image_mimes_allow')) . '.',
+        'avatar'                => [
+            'max'       => 'Dung lượng tập tin trong trường :attribute không được lớn hơn '.config(
+                    'upload.file_max_size'
+                ) / 1024 .' MB.',
+            'mimes'     => ':attribute phải là một tập tin có định dạng: '.implode(
+                    ', ',
+                    config('upload.image_mimes_allow')
+                ).'.',
+            'mimetypes' => ':attribute phải là một tập tin có định dạng: '.implode(
+                    ', ',
+                    config('upload.image_mimes_allow')
+                ).'.',
         ],
-        'birthday' => [
+        'birthday'              => [
             'date_format' => ':attribute phải là ngày hợp lệ và theo định dạng dd/mm/yyyy.',
         ],
-        'birth_day' => [
+        'birth_day'             => [
             'date_format' => ':attribute phải là ngày hợp lệ và theo định dạng dd/mm/yyyy.',
         ],
-        'current_password' => [
-            'required' => ':attribute không được bỏ trống.'
+        'current_password'      => [
+            'required' => ':attribute không được bỏ trống.',
         ],
         'password_confirmation' => [
             'same' => ':attribute không chính xác.',
         ],
-        'brand_id' => [
+        'brand_id'              => [
             'required' => 'Vui lòng chọn :attribute.',
         ],
-        'category_id' => [
+        'category_id'           => [
             'required' => 'Vui lòng chọn :attribute.',
-        ]
+        ],
     ],
 
     /*
@@ -184,60 +200,62 @@ return [
     */
 
     'attributes' => [
-        'storehouse.*.name'                   => 'Size',
-        'storehouse.*.quantity'                   => 'Số lượng',
-        'address'                   => 'Địa chỉ',
-        'age'                       => 'Tuổi',
-        'available'                 => 'Có sẵn',
-        'body'                      => 'Nội dung',
-        'city'                      => 'Thành phố',
-        'content'                   => 'Nội dung',
-        'country'                   => 'Quốc gia',
-        'company_name'              => 'Tên đối tác',
-        'date'                      => 'Ngày',
-        'day'                       => 'Ngày',
-        'description'               => 'Mô tả',
-        'email'                     => 'Email',
-        'excerpt'                   => 'Trích dẫn',
-        'first_name'                => 'Tên',
-        'gender'                    => 'Giới tính',
-        'hour'                      => 'Giờ',
-        'last_name'                 => 'Họ',
-        'message'                   => 'Lời nhắn',
-        'minute'                    => 'Phút',
-        'mobile'                    => 'Di động',
-        'month'                     => 'Tháng',
-        'name'                      => 'Tên',
-        'password'                  => 'Mật khẩu',
-        'password_confirmation'     => 'Xác nhận mật khẩu',
-        'phone'                     => 'Số điện thoại',
-        'phone_number'              => 'Số điện thoại',
-        'second'                    => 'Giây',
-        'sex'                       => 'Giới tính',
-        'size'                      => 'Kích thước',
-        'subject'                   => 'Tiêu đề',
-        'time'                      => 'Thời gian',
-        'title'                     => 'Tiêu đề',
-        'username'                  => 'Tên đăng nhập',
-        'year'                      => 'Năm',
-        'image'                     => 'Ảnh',
-        'files.*'                   => 'File',
-        'position'                  => 'Chức vụ',
-        'department_id'             => 'Phòng ban',
-        'avatar'                    => 'Hình ảnh',
-        'permission'                => 'Quyền',
-        'roles_concurrently_id'     => 'Quyền kiêm nhiệm',
-        'birthday'                  => 'Ngày tháng năm sinh',
-        'birth_day'                  => 'Ngày tháng năm sinh',
-        'expert_object_id' => __('Đối tượng chuyên gia'),
-        'specialize_id' => __('Nghiệp vụ'),
-        'years_of_experience' => __('Số năm kinh nghiệm'),
-        'tax_code'                  => 'Mã số thuế TNCN',
-        'citizen_identification'    => 'Số CCCD/Hộ chiếu',
-        'role_concurrently_id.*'      => 'Quyền kiêm nhiệm',
-        'brand_id'      => 'Thương hiệu',
-        'category_id'      => 'Danh mục',
-        'sub_image'      => 'Ảnh phụ',
+        'storehouse.*.name'      => 'Size',
+        'storehouse.*.quantity'  => 'Số lượng',
+        'price'                  => 'Giá',
+        'introduce'              => 'Giới thiệu',
+        'address'                => 'Địa chỉ',
+        'age'                    => 'Tuổi',
+        'available'              => 'Có sẵn',
+        'body'                   => 'Nội dung',
+        'city'                   => 'Thành phố',
+        'content'                => 'Nội dung',
+        'country'                => 'Quốc gia',
+        'company_name'           => 'Tên đối tác',
+        'date'                   => 'Ngày',
+        'day'                    => 'Ngày',
+        'description'            => 'Mô tả',
+        'email'                  => 'Email',
+        'excerpt'                => 'Trích dẫn',
+        'first_name'             => 'Tên',
+        'gender'                 => 'Giới tính',
+        'hour'                   => 'Giờ',
+        'last_name'              => 'Họ',
+        'message'                => 'Lời nhắn',
+        'minute'                 => 'Phút',
+        'mobile'                 => 'Di động',
+        'month'                  => 'Tháng',
+        'name'                   => 'Tên',
+        'password'               => 'Mật khẩu',
+        'password_confirmation'  => 'Xác nhận mật khẩu',
+        'phone'                  => 'Số điện thoại',
+        'phone_number'           => 'Số điện thoại',
+        'second'                 => 'Giây',
+        'sex'                    => 'Giới tính',
+        'size'                   => 'Kích thước',
+        'subject'                => 'Tiêu đề',
+        'time'                   => 'Thời gian',
+        'title'                  => 'Tiêu đề',
+        'username'               => 'Tên đăng nhập',
+        'year'                   => 'Năm',
+        'image'                  => 'Ảnh',
+        'files.*'                => 'File',
+        'position'               => 'Chức vụ',
+        'department_id'          => 'Phòng ban',
+        'avatar'                 => 'Hình ảnh',
+        'permission'             => 'Quyền',
+        'roles_concurrently_id'  => 'Quyền kiêm nhiệm',
+        'birthday'               => 'Ngày tháng năm sinh',
+        'birth_day'              => 'Ngày tháng năm sinh',
+        'expert_object_id'       => __('Đối tượng chuyên gia'),
+        'specialize_id'          => __('Nghiệp vụ'),
+        'years_of_experience'    => __('Số năm kinh nghiệm'),
+        'tax_code'               => 'Mã số thuế TNCN',
+        'citizen_identification' => 'Số CCCD/Hộ chiếu',
+        'role_concurrently_id.*' => 'Quyền kiêm nhiệm',
+        'brand_id'               => 'Thương hiệu',
+        'category_id'            => 'Danh mục',
+        'sub_image'              => 'Ảnh phụ',
     ],
 
 ];

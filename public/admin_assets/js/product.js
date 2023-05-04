@@ -62,6 +62,29 @@ const PRODUCT = (function () {
         });
     };
 
+    modules.update = function (id, data = {}) {
+        $.ajax({
+            type: 'POST',
+            url: `/admin/products/${id}`,
+            data,
+            dataType: 'json',
+            beforeSend: function () {
+                COMMON.loading(true);
+            },
+            success: function (res) {
+                if (res.success) {
+                    toastr.success(res.message);
+                    modules.getList('/admin/products/');
+                } else {
+                    toastr.error('Đã xảy ra lỗi hệ thống');
+                }
+            },
+            complete: function () {
+                COMMON.loading(false, 300);
+            }
+        });
+    };
+
     modules.delete = function (id, callback) {
         $.ajax({
             type: 'DELETE',
@@ -120,6 +143,17 @@ const PRODUCT = (function () {
         });
     };
 
+    modules.filter = function () {
+        let data = {
+            key_search: $("input[name='key_search']").val().trim()
+        };
+        $(document).find('.filter-product').map((i, e) => {
+            data = {...data, [$(e).data('name')]: $(e).val()};
+        });
+
+        return data;
+    };
+
     return modules;
 })(window.jQuery, window, document);
 
@@ -128,13 +162,21 @@ $(document).ready(function () {
 
     $(document).on('click', '#list-product .pagination a', function (e) {
         e.preventDefault();
-        let keySearch = $("input[name='key_search']").val().trim();
-        PRODUCT.getList($(this).attr('href'), {key_search: keySearch});
+        PRODUCT.getList($(this).attr('href'), PRODUCT.filter());
     });
 
     $(document).on('keyup', "input[name='key_search']", COMMON.debounce(function () {
-        PRODUCT.getList('/admin/products/', {key_search: $(this).val().trim()});
+        PRODUCT.getList('/admin/products/', PRODUCT.filter());
     }, 500));
+
+    $(document).on('keyup, change', '.filter-product', COMMON.debounce(function () {
+        PRODUCT.getList('/admin/products/', PRODUCT.filter());
+    }, 500));
+
+    $(document).on('keyup', 'input[name="price"]', COMMON.debounce(function () {
+        let data = $(this).val().replaceAll(',', '');
+        $(this).val(data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+    }, 200));
 
 
     $(document).on('click', '.delete-product', function () {
@@ -150,6 +192,11 @@ $(document).ready(function () {
 
     $(document).on('click', '.edit-product', function () {
         window.location.href = $(this).data('url');
+    });
+
+    $(document).on('click', '.update-status', function () {
+        let {id, status} = $(this).data();
+        PRODUCT.update(id, {status})
     });
 
     $(`#image-upload`).change(function (data) {

@@ -8,10 +8,10 @@ Route::get('lang/{lang}', [LocaleController::class, 'change'])->name('locale.cha
 Route::namespace('admin')->group(
     function () {
         Route::group(['middleware' => ['auth:admin']], function () {
-            includeRouteFiles(__DIR__.'/admin/dashboard/');
-            includeRouteFiles(__DIR__.'/admin/profile/');
-            includeRouteFiles(__DIR__.'/admin/category/');
-            includeRouteFiles(__DIR__.'/admin/brand/');
+            includeRouteFiles(__DIR__.'/admin/dashboard');
+            includeRouteFiles(__DIR__.'/admin/profile');
+            includeRouteFiles(__DIR__.'/admin/category');
+            includeRouteFiles(__DIR__.'/admin/brand');
             includeRouteFiles(__DIR__.'/admin/product');
         });
         Route::group(['prefix' => '/'],function () {

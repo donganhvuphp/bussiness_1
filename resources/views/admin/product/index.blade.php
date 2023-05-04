@@ -26,16 +26,13 @@
                         <a class="btn btn-primary icon-btn" href="{{ route('admin.products.create')  }}"><i class="fa fa-plus"></i>{{ __('Thêm mới') }}</a>
                     </p>
                 </div>
-                <div class="w-30 ml-0 mb-3 position-relative">
-                    <i class="fa fa-search position-absolute position-search cursor-pointer" aria-hidden="true"></i>
-                    <input name="key_search" class="form-control" type="text" placeholder="Tìm kiếm">
-                </div>
+                @include('admin.product.filter')
                 <table class="table table-bordered">
                     <thead>
                     <tr>
                         <th class="text-center">#</th>
-                        <th>{{ __('Tên sản phẩm') }}</th>
                         <th>{{ __('Hình ảnh') }}</th>
+                        <th class="w-25">{{ __('Tên sản phẩm') }}</th>
                         <th>{{ __('Thương hiệu') }}</th>
                         <th>{{ __('Danh mục') }}</th>
                         <th>{{ __('Số lượng') }}</th>

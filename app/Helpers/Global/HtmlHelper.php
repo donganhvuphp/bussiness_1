@@ -42,3 +42,26 @@ if (!function_exists('handleSelected')) {
     }
 }
 
+if (! function_exists('formatCurrency')) {
+    /**
+     * @param      $currency
+     * @param string $currencyUnit
+     * @param bool $after
+     *
+     * @return int|string
+     */
+    function formatCurrency($currency, string $currencyUnit = '', bool $after = true): int|string
+    {
+        if (isset($currency) && $currency != '') {
+            $format = number_format($currency, 0, ',', ',');
+            if ($after && isset($format)) {
+                return $format . $currencyUnit;
+            }
+
+            return isset($format) ? ($currencyUnit . $format) : 0;
+        }
+
+        return '';
+    }
+}
+

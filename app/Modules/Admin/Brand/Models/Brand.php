@@ -23,4 +23,5 @@ class Brand extends Model
     ];
 
     public const TAG_AVATAR = 'avatar';
+    public const PUBLISH = 3;
 }

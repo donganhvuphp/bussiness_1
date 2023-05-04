@@ -17,9 +17,6 @@
     @include('client.layouts.top_info')
 <!-- Header Section End -->
 
-<!-- Hero Section Begin -->
-    @include('client.layouts.banner_home')
-<!-- Hero Section End -->
 @yield('content')
 
 <!-- Footer Section Begin -->
@@ -28,7 +25,7 @@
 
 <!-- Js Plugins -->
 @include('client.layouts.script')
-
+@yield('script')
 </body>
 
 </html>

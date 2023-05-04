@@ -45,6 +45,14 @@ class CategoryService extends BaseService implements CategoryInterface
     }
 
     /**
+     * @return mixed
+     */
+    public function getPublish(): mixed
+    {
+        return $this->model::getPublish()->get();
+    }
+
+    /**
      * @param $category
      *
      * @return bool|null

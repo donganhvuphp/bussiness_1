@@ -23,6 +23,11 @@ interface CategoryInterface
     public function search(Request $request);
 
     /**
+     * @return mixed
+     */
+    public function getPublish(): mixed;
+
+    /**
      * @param $category
      *
      * @return mixed
