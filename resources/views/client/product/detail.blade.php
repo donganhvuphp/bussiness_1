@@ -65,7 +65,7 @@
                             <div class="mt-4 color-757575"><b>{{ __('Size:') }}</b></div>
                             <div class="size-area d-flex row">
                                 @forelse($product->storehouses as $size)
-                                    <div class="size col-2 mt-3" data-quantity="{{ $size->quantity }}">
+                                    <div class="col-2 mt-3 {{ !$size->quantity ? 'size-null' : 'size' }}" data-quantity="{{ $size->quantity }}">
                                         {{ $size->name }}
                                     </div>
                                 @empty
@@ -76,7 +76,7 @@
                         <ul>
                             <li><b>{{ __('Số lượng hiện có:') }}</b> <span>{{ $product->quantity }}</span></li>
                             <li><b>{{ __('Vận chuyển:') }}</b><span>vận chuyển từ 3 - 5 ngày.</span></li>
-                            <li><b>Chia sẻ:</b>
+                            <li><b>{{ __('Chia sẻ:') }}</b>
                                 <div class="share">
                                     <a href="#"><i class="fa fa-facebook"></i></a>
                                     <a href="#"><i class="fa fa-twitter"></i></a>

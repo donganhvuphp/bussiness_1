@@ -139,3 +139,10 @@ crontab -e
 Add content as below:
 ```sh
 * * * * * cd /var/www/bussiness_01 && php artisan schedule:run >> /dev/null 2>&1
+```
+
+download vietnam maps:
+```sh
+php artisan vendor:publish --provider="HoangPhi\VietnamMap\VietnamMapServiceProvider"
+php artisan vietnam-map:download
+```

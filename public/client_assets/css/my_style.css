@@ -123,3 +123,15 @@
     cursor: pointer;
     background: #fff4f6;
 }
+
+.size-null {
+    text-align: center;
+    border: 1px solid rgba(0,0,0,.09);
+    padding: 8px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    color: #525252;
+    margin: 0 7px 0 7px;
+    cursor: not-allowed;
+    background-color: #f7f7f7;
+}
