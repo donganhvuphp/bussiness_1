@@ -91,7 +91,7 @@ class Handler extends ExceptionHandler
         $guard = $exception->guards();
         $login = match ($guard[0]) {
             'admin' => 'admin.login',
-            default => 'user.login',
+            default => 'client.login',
         };
 
         return redirect()->guest(route($login));

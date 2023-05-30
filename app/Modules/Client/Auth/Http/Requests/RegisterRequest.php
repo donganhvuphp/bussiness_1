@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Modules\Admin\Account\Http\Requests;
+namespace App\Modules\Client\Auth\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
- * Class UpdatePasswordRequest.
+ * Class RegisterRequest.
  */
-class LoginRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +27,10 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => Rule::requiredIf(empty(request('phone'))),
-            'phone' => Rule::requiredIf(empty(request('email'))),
-            'password' => 'required',
+            'name' => 'required|max:255',
+            'phone' => ['required', 'unique:users', "regex:" . REGEX_PHONE],
+            'email' => 'required|max:255|unique:users|email:rfc,filter',
+            'password' => 'required|confirmed|min:6',
         ];
     }
 }

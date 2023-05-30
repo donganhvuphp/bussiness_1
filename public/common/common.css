@@ -147,3 +147,34 @@
 .datepicker.datepicker-dropdown {
     top: 277px !important;
 }
+
+.bg-fff5f5 {
+    background-color: #fff5f5;
+}
+
+.top-25 {
+    top: 25%
+}
+
+.notify-cart {
+    background: rgba(36, 36, 36, 0.8);
+    color: white;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.div-icon-success {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #24b9b9;
+    padding: 25px;
+    position: relative;
+}
+
+.icon-success {
+    position: absolute;
+    top: 17px;
+    right: 14px
+}

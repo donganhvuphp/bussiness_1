@@ -1,7 +1,7 @@
 @extends('client.layouts.app')
 
 @section('title')
-    {{ __('Trang chủ') }}
+    {{ __('Sản phẩm') }}
 @endsection
 
 @section('content')
@@ -71,7 +71,10 @@
                                 @empty
                                 @endforelse
                             </div>
-                            <div class="primary-btn mt-5 col-9 col-md-6 cursor-pointer"><i class="fa fa-shopping-cart font-20 mr-3"></i>{{ __('Thêm vào giỏ hàng') }}</div>
+                            <div class="primary-btn mt-5 col-9 col-md-6 cursor-pointer" id="btn-add-cart">
+                                <i class="fa fa-shopping-cart font-20 mr-3"></i>
+                                {{ __('Thêm vào giỏ hàng') }}
+                            </div>
                         </div>
                         <ul>
                             <li><b>{{ __('Số lượng hiện có:') }}</b> <span>{{ $product->quantity }}</span></li>
@@ -201,6 +204,7 @@
             </div>
         </div>
     </section>
+    @include('client.modal.notify_cart')
 @endsection
 
 @section('script')
