@@ -50,11 +50,13 @@ class ProductSeeder extends Seeder
                 return [
                     'name'        => $name,
                     'slug'        => generateSlug($name),
-                    'introduce' => Str::random(225),
+                    'introduce'   => Str::random(225),
+                    'price'       => rand(300000, 1000000),
                     'description' => Str::random(225),
+                    'is_featured' => ACTIVE,
                     'category_id' => $categories[array_rand($categories)],
                     'brand_id'    => $brands[array_rand($brands)],
-                    'status'      => INACTIVE,
+                    'status'      => ACTIVE,
                     'created_at'  => now(),
                 ];
             },

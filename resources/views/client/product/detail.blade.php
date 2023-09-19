@@ -65,13 +65,13 @@
                             <div class="mt-4 color-757575"><b>{{ __('Size:') }}</b></div>
                             <div class="size-area d-flex row">
                                 @forelse($product->storehouses as $size)
-                                    <div class="col-2 mt-3 {{ !$size->quantity ? 'size-null' : 'size' }}" data-quantity="{{ $size->quantity }}">
+                                    <div class="col-2 mt-3 {{ !$size->quantity ? 'size-null' : 'size' }}" data-quantity="{{ $size->quantity }}" data-size="{{ $size->name }}">
                                         {{ $size->name }}
                                     </div>
                                 @empty
                                 @endforelse
                             </div>
-                            <div class="primary-btn mt-5 col-9 col-md-6 cursor-pointer" id="btn-add-cart">
+                            <div class="primary-btn mt-5 col-9 col-md-6 cursor-pointer" id="btn-add-cart" product-id="{{ $product->id }}">
                                 <i class="fa fa-shopping-cart font-20 mr-3"></i>
                                 {{ __('Thêm vào giỏ hàng') }}
                             </div>
@@ -106,7 +106,7 @@
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>{{ __('Mô tả sản phẩm') }}</h6>
-                                    {!! $product->description !!}
+                                    <p class="word-wrap-break">{{ $product->description }}</p>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
@@ -209,4 +209,5 @@
 
 @section('script')
     <script src="{{ asset('client_assets/js/product_detail.js') }}" type="module"></script>
+    <script src="{{ asset('client_assets/js/cart.js') }}" type="module"></script>
 @endsection

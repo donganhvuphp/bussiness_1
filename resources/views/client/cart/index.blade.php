@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="{{ asset('client_assets/img/breadcrumb.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -20,7 +20,8 @@
             </div>
         </div>
     </section>
-    <section class="shoping-cart spad">
+    @if(!empty($carts))
+        <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -28,80 +29,42 @@
                         <table>
                             <thead>
                             <tr>
-                                <th class="shoping__product">Products</th>
+                                <th class="shoping__product">Name</th>
+                                <th>Size</th>
                                 <th>Price</th>
                                 <th>Quantity</th>
                                 <th>Total</th>
-                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-1.jpg" alt="">
-                                    <h5>Vegetable’s Package</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $55.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $110.00
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-2.jpg" alt="">
-                                    <h5>Fresh Garden Vegetable</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $39.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $39.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="shoping__cart__item">
-                                    <img src="img/cart/cart-3.jpg" alt="">
-                                    <h5>Organic Bananas</h5>
-                                </td>
-                                <td class="shoping__cart__price">
-                                    $69.00
-                                </td>
-                                <td class="shoping__cart__quantity">
-                                    <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="shoping__cart__total">
-                                    $69.99
-                                </td>
-                                <td class="shoping__cart__item__close">
-                                    <span class="icon_close"></span>
-                                </td>
-                            </tr>
+                                @forelse($carts as $cart)
+                                    <tr>
+                                        <td class="shoping__cart__item">
+                                            <img src="img/cart/cart-1.jpg" alt="">
+                                            <h5> {{ $cart->product->name }}</h5>
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                            {{ $cart->size }}
+                                        </td>
+                                        <td class="shoping__cart__price">
+                                            {{ formatCurrency($cart->product->price, ' đ') }}
+                                        </td>
+                                        <td class="shoping__cart__quantity">
+                                            <div class="quantity">
+                                                <div class="pro-qty">
+                                                    <input type="text" value="{{ $cart->quantity }}">
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="shoping__cart__total">
+                                            {{ formatCurrency($cart->price, ' đ') }}
+                                        </td>
+                                        <td class="shoping__cart__item__close">
+                                            <span class="icon_close"></span>
+                                        </td>
+                                    </tr>
+                                @empty
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
@@ -130,15 +93,22 @@
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+{{--                            <li>Subtotal <span>$454.98</span></li>--}}
+                            <li>Total <span>{{ formatCurrency($cart->shoppingSession->price_total, ' đ') }}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="{{ route('client.order.store', ['id' => $cart->shoppingSession->id]) }}" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    @else
+        <section class="shoping-cart spad">
+            <div class="container">
+                <h3>Bạn chưa có sản phẩm nào trong giỏ hàng, hãy quay lại và tiếp tục mua sắm nào</h3>
+            </div>
+        </section>
+    @endif
 @endsection
 
 @section('script')

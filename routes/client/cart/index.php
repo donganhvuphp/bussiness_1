@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'cart', 'as' => 'cart.'], function () {
     Route::get('/', [CartController::class, 'index'])
         ->name('index');
+
+    Route::post('/add-cart/{id}', [CartController::class, 'store'])
+        ->name('store');
 });
 
 

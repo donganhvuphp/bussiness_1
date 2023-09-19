@@ -59,6 +59,7 @@ class AuthController extends Controller
     public function login(LoginRequest $request): RedirectResponse
     {
         $auth = $this->authInterface->login($request);
+
         if ($auth) {
             return redirect()->route('client.home.index');
         }

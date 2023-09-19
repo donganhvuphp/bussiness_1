@@ -4,7 +4,7 @@ use App\Modules\Client\Auth\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix' => 'auth', 'middleware' => ['guest:admin']], function () {
+Route::group(['prefix' => 'auth', 'middleware' => ['guest:web']], function () {
     Route::get('/login', [AuthController::class, 'loginView'])
         ->name('loginView');
     Route::post('/login', [AuthController::class, 'login'])

@@ -12,6 +12,10 @@ if(!defined('INACTIVE')) {
     define('INACTIVE', 0);
 }
 
+if(!defined('PUBLISH')) {
+    define('PUBLISH', 3);
+}
+
 if(!defined('REGEX_PHONE')) {
     define('REGEX_PHONE', '/(0[3|5|7|8|9])+([0-9]{8})/');
 }

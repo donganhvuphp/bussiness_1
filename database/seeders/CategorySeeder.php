@@ -49,6 +49,7 @@ class CategorySeeder extends Seeder
         return array_map(function($name) {
             return [
                 'name'       => $name,
+                'status'     => PUBLISH,
                 'created_at' => now(),
             ];
         }, $name);

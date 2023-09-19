@@ -36,7 +36,7 @@ class AuthService extends BaseService implements AuthInterface
      */
     public function login(Request $request): bool
     {
-        return Auth::guard('web')->attempt($request->only('phone', 'password'));
+        return Auth::guard('web')->attempt($request->only('email', 'password'));
     }
 
     /**

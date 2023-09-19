@@ -1,6 +1,7 @@
 <?php
 
 use App\Modules\Client\Auth\Http\Controllers\VerificationController;
+use App\Modules\Admin\Order\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,11 @@ Route::group(
 
         Route::group(['middleware' => ['auth:web']], function () {
             includeRouteFiles(__DIR__.'/client/cart/');
+            includeRouteFiles(__DIR__.'/client/order/');
+
+            Route::group(['prefix' => '/order', 'as' => 'order.'], function () {
+                Route::get('/store/{id}', [OrderController::class, 'store'])->name('store');
+            });
         });
     }
 );

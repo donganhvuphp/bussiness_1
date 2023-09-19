@@ -38,8 +38,8 @@
                             <form action="{{ route('client.login') }}" method="post">
                                 @csrf
                                 <div class="form-group first mb-0 mt-3">
-                                    <label for="user_name">{{ __('Số điện thoại/Email:') }}</label>
-                                    <input type="text" class="form-control" id="user_name" name="phone">
+                                    <label for="user_name">{{ __('Email:') }}</label>
+                                    <input type="text" class="form-control" id="user_name" name="email">
                                 </div>
                                 @error('phone')
                                 <span class="color-red font-12">{{ $message }}</span>

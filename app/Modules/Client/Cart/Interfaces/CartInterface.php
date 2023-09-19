@@ -8,5 +8,5 @@ use Illuminate\Http\Request;
  */
 interface CartInterface
 {
-//    public function getAll();
+    public function insertProductToCart($product, $request);
 }

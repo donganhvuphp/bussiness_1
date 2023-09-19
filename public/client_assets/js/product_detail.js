@@ -1,4 +1,5 @@
 import {COMMON} from "../../common/common.js";
+import {CART} from "./cart.js";
 
 const NOTIFY_CART = '#notify-cart';
 
@@ -39,15 +40,23 @@ $(document).ready(function () {
 
     $(document).on('click', '#btn-add-cart', function () {
         let elementSize = $('.size-area');
+        let elmentQuantity = $('.pro-qty');
         let selectProduct = elementSize.find('.active');
+        let selectQuantity = elmentQuantity.find('input[name="quantity"]');
+
         if (!selectProduct.length && !elementSize.hasClass('bg-fff5f5')) {
             elementSize.addClass('bg-fff5f5').append(`
                <div class="color-red m-3 notify-select">Vui lòng chọn Phân loại hàng</div>
             `);
         } else {
+            let size = selectProduct.attr('data-size');
+            let quantity = selectQuantity.val();
+            let productId = $(this).attr('product-id');
 
+            CART.addCart(productId,{quantity, size});
+
+            $(NOTIFY_CART).modal('show');
         }
-        $(NOTIFY_CART).modal('show');
     });
 
     $(document).on('change', "input[name='quantity']", function () {

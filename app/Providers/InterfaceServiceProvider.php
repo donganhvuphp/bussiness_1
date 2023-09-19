@@ -8,6 +8,8 @@ use App\Modules\Admin\Brand\Interfaces\BrandInterface;
 use App\Modules\Admin\Brand\Services\BrandService;
 use App\Modules\Admin\Category\Interfaces\CategoryInterface;
 use App\Modules\Admin\Category\Services\CategoryService;
+use App\Modules\Admin\Order\Interfaces\OrderInterface;
+use App\Modules\Admin\Order\Services\OrderService;
 use App\Modules\Admin\Product\Interfaces\ProductInterface;
 use App\Modules\Admin\Product\Services\ProductService;
 use App\Modules\Admin\Storehouse\Interfaces\StorehouseInterface;
@@ -37,6 +39,7 @@ class InterfaceServiceProvider extends ServiceProvider
         $this->app->singleton(StorehouseInterface::class, StorehouseService::class);
         $this->app->singleton(AuthInterface::class, AuthService::class);
         $this->app->singleton(CartInterface::class, CartService::class);
+        $this->app->singleton(OrderInterface::class, OrderService::class);
     }
 
     /**
